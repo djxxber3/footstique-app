@@ -1,12 +1,22 @@
 package com.footstique.player;
 
+import static android.view.View.GONE;
+import static android.view.View.INVISIBLE;
+
+import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.FrameLayout;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListPopupWindow;
 import android.widget.Toast;
@@ -28,6 +38,8 @@ import androidx.media3.exoplayer.ExoPlayer;
 import androidx.media3.exoplayer.hls.HlsMediaSource;
 import androidx.media3.exoplayer.source.ProgressiveMediaSource;
 import androidx.media3.exoplayer.trackselection.DefaultTrackSelector;
+import androidx.media3.ui.AspectRatioFrameLayout;
+import androidx.media3.ui.PlayerView;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -39,28 +51,120 @@ import java.util.Objects;
 
 public class PlayerActivity extends AppCompatActivity {
 
-    public static final String EXTRA_STREAMS = "streams"; // Serializable: ArrayList<Map<String,Object>>
+    // ------------------- المتغيرات القديمة -------------------
+    public static final String EXTRA_STREAMS = "streams";
     private static final String TAG = "PlayerActivity";
     private static final String DEFAULT_USER_AGENT = "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36";
-
     private ExoPlayer exoPlayer;
     private androidx.media3.ui.PlayerView playerView;
     private LinearLayout qualityBar;
-
     private final List<Map<String, Object>> streams = new ArrayList<>();
     private final Map<String, List<Map<String, Object>>> byQuality = new LinkedHashMap<>();
 
+    // ------------------- المتغيرات الجديدة للتحكم بالواجهة -------------------
+    private FrameLayout playerUnlockControls;
+    private FrameLayout playerLockControls;
+    private ImageButton lockControlsButton;
+    private ImageButton unlockControlsButton;
+    private ImageButton screenRotateButton;
+    private ImageButton videoZoomButton;
+    private boolean isControlsLocked = false;
+    private int currentZoomMode = 0; // 0=Fit, 1=Stretch, 2=Zoom
+
+
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_player);
 
+        View decorView = getWindow().getDecorView();
+        decorView.setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_IMMERSIVE
+                        | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_FULLSCREEN
+                        | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                        | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+        );
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.P) {
+            Window window = getWindow();
+            WindowManager.LayoutParams layoutParams = window.getAttributes();
+            layoutParams.layoutInDisplayCutoutMode =
+                    WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES;
+            window.setAttributes(layoutParams);
+        }
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
+        setContentView(R.layout.activity_player);
         playerView = findViewById(R.id.player_view);
         qualityBar = findViewById(R.id.quality_bar);
+        qualityBar.setVisibility(INVISIBLE);
+        playerView.setControllerVisibilityListener(new PlayerView.ControllerVisibilityListener() {
+            @Override
+            public void onVisibilityChanged(int visibility) {
+                qualityBar.setVisibility(visibility);
+            }
+        });
+        playerUnlockControls = findViewById(R.id.player_unlock_controls);
+        playerLockControls = findViewById(R.id.player_lock_controls);
+        lockControlsButton = findViewById(R.id.btn_lock_controls);
+        unlockControlsButton = findViewById(R.id.btn_unlock_controls);
+        screenRotateButton = findViewById(R.id.screen_rotate);
+        videoZoomButton = findViewById(R.id.btn_video_zoom);
 
+        // إخفاء واجهة القفل في البداية
+        playerLockControls.setVisibility(INVISIBLE);
+
+        // تفعيل وظائف الأزرار الجديدة
+        setupClickListeners();
+
+        // --- استدعاء دوالك القديمة ---
         readStreamsFromIntent();
         groupByQuality();
         setupQualityButtons();
+    }
+
+    @OptIn(markerClass = UnstableApi.class)
+    private void setupClickListeners() {
+        // وظيفة زر قفل الشاشة
+        lockControlsButton.setOnClickListener(v -> {
+            playerUnlockControls.setVisibility(INVISIBLE);
+            playerLockControls.setVisibility(View.VISIBLE);
+            isControlsLocked = true;
+        });
+
+        // وظيفة زر فتح القفل
+        unlockControlsButton.setOnClickListener(v -> {
+            playerLockControls.setVisibility(INVISIBLE);
+            playerUnlockControls.setVisibility(View.VISIBLE);
+            isControlsLocked = false;
+            playerView.showController(); // إظهار شريط التحكم مرة أخرى
+        });
+
+        // وظيفة زر دوران الشاشة
+        screenRotateButton.setOnClickListener(v -> {
+            if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+                setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT);
+            } else {
+                setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
+            }
+        });
+
+        // وظيفة زر الزوم (تكبير وتصغير الفيديو)
+        videoZoomButton.setOnClickListener(v -> {
+            currentZoomMode = (currentZoomMode + 1) % 3; // Cycle through 0, 1, 2
+            switch (currentZoomMode) {
+                case 0: // BEST_FIT
+                    playerView.setResizeMode(AspectRatioFrameLayout.RESIZE_MODE_FIT);
+                    videoZoomButton.setImageResource(R.drawable.ic_fit_screen); // تأكد من وجود هذه الأيقونة
+                    break;
+                case 1: // STRETCH
+                    playerView.setResizeMode(AspectRatioFrameLayout.RESIZE_MODE_FILL);
+                    break;
+                case 2: // CROP (ZOOM)
+                    playerView.setResizeMode(AspectRatioFrameLayout.RESIZE_MODE_ZOOM);
+                    break;
+            }
+        });
     }
 
     @Override
@@ -108,6 +212,7 @@ public class PlayerActivity extends AppCompatActivity {
             exoPlayer = null;
         }
     }
+
     @OptIn(markerClass = UnstableApi.class)
     private void playStream(Map<String, Object> stream) {
         if (exoPlayer == null || stream == null) return;
@@ -119,7 +224,6 @@ public class PlayerActivity extends AppCompatActivity {
         }
         String url = (String) urlObj;
 
-        // اجمع الـ headers
         Map<String, String> headers = new HashMap<>();
         Object headersObj = stream.get("headers");
         if (headersObj instanceof Map) {
@@ -131,40 +235,26 @@ public class PlayerActivity extends AppCompatActivity {
         if (stream.containsKey("origin")) headers.put("Origin", (String) stream.get("origin"));
         if (stream.containsKey("cookie")) headers.put("Cookie", (String) stream.get("cookie"));
 
-        // Factory مخصص يطبق headers على كل Connection
-        DataSource.Factory customDataSourceFactory = new DataSource.Factory() {
-            @NonNull
-            @Override
-            public DataSource createDataSource() {
-                DefaultHttpDataSource dataSource = new DefaultHttpDataSource
-                        .Factory()
-                        .setUserAgent((String) stream.getOrDefault("userAgent", DEFAULT_USER_AGENT))
-                        .setAllowCrossProtocolRedirects(true)
-                        .createDataSource();
-
-                // تطبيق الـ headers
-                for (Map.Entry<String, String> entry : headers.entrySet()) {
-                    dataSource.setRequestProperty(entry.getKey(), entry.getValue());
-                }
-
-                return dataSource;
+        DataSource.Factory customDataSourceFactory = () -> {
+            DefaultHttpDataSource dataSource = new DefaultHttpDataSource
+                    .Factory()
+                    .setUserAgent((String) stream.getOrDefault("userAgent", DEFAULT_USER_AGENT))
+                    .setAllowCrossProtocolRedirects(true)
+                    .createDataSource();
+            for (Map.Entry<String, String> entry : headers.entrySet()) {
+                dataSource.setRequestProperty(entry.getKey(), entry.getValue());
             }
+            return dataSource;
         };
 
-        // إنشاء MediaItem
-        MediaItem mediaItem = new MediaItem.Builder()
-                .setUri(Uri.parse(url))
-                .build();
+        MediaItem mediaItem = new MediaItem.Builder().setUri(Uri.parse(url)).build();
 
-        // تحديد نوع المحتوى
         int type = Util.inferContentType(Uri.parse(url));
         if (type == C.CONTENT_TYPE_HLS) {
-            HlsMediaSource hls = new HlsMediaSource.Factory(customDataSourceFactory)
-                    .createMediaSource(mediaItem);
+            HlsMediaSource hls = new HlsMediaSource.Factory(customDataSourceFactory).createMediaSource(mediaItem);
             exoPlayer.setMediaSource(hls);
         } else {
-            ProgressiveMediaSource prog = new ProgressiveMediaSource.Factory(customDataSourceFactory)
-                    .createMediaSource(mediaItem);
+            ProgressiveMediaSource prog = new ProgressiveMediaSource.Factory(customDataSourceFactory).createMediaSource(mediaItem);
             exoPlayer.setMediaSource(prog);
         }
 
@@ -193,7 +283,7 @@ public class PlayerActivity extends AppCompatActivity {
             btn.setText(quality);
             btn.setOnClickListener(v -> showLinksPopup(btn, quality, links));
             LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-            lp.setMargins(8,8,8,8);
+            lp.setMargins(8, 8, 8, 8);
             btn.setLayoutParams(lp);
             qualityBar.addView(btn);
         }

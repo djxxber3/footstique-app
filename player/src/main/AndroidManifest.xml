@@ -5,7 +5,7 @@
 			android:name="com.footstique.player.PlayerActivity"
 			android:exported="false"
 			android:screenOrientation="sensorLandscape"
-			android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
+    android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize|uiMode"
 			android:theme="@style/Theme.Player.Fullscreen" />
 	</application>
 </manifest>
