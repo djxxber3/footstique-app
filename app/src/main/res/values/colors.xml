@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <color name="fs_orange">#FF5722</color>
+    <color name="fs_nav_selected">#FF5722</color>
+    <color name="fs_nav_unselected">#8A8A8A</color> <color name="fs_light_grey">#D3D3D3</color>
+    <color name="fs_grey_divider">#E0E0E0</color>
+
+    <color name="primary_color">#FF007BFF</color>
+    <color name="primary_dark_color">#FF0056B3</color>
+    <color name="accent_color">#FF28A745</color>
+    <color name="background_light_grey">#F5F5F5</color>
+    <color name="text_dark_grey">#212121</color>
+    <color name="text_medium_grey">#757575</color>
+    <color name="card_background">#FFFFFF</color>
+
+    <color name="fs_dark_grey">#FF444444</color>
+    <color name="fs_dark_grey_secondary">#FF888888</color>
+    <color name="fs_white">#FFFFFF</color>
+    <color name="fs_dark_grey_primary">#F0F0F0</color>
+</resources>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <bytecodeTargetLevel target="21">
+      <module name="FootstiquePlayer.app" target="21" />
+      <module name="FootstiquePlayer.core.common" target="21" />
+      <module name="FootstiquePlayer.core.ui" target="21" />
+      <module name="FootstiquePlayer.feature.player" target="21" />
+    </bytecodeTargetLevel>
+  </component>
+</project>
