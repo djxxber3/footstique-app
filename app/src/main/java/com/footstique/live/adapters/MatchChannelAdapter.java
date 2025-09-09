@@ -1,5 +1,6 @@
 package com.footstique.live.adapters;
 
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -7,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -63,18 +65,14 @@ public class MatchChannelAdapter extends RecyclerView.Adapter<MatchChannelAdapte
                 } catch (JSONException ignored) {}
             }
             String json = arr.toString();
-
+            Intent intent = new Intent();
             // استخدام Intent مع action و package
-            Intent intent = new Intent("com.footstique.fsplayer.PLAY_STREAM");
-            intent.setPackage("com.footstique.fsplayer");
-            intent.putExtra("EXTRA_STREAMS_JSON", json);
-
-            // تحقق من وجود تطبيق يستطيع استقبال هذا الـ Intent
+          intent.setComponent(new ComponentName("com.footstique.fsplayer","com.footstique.player.PlayerActivity"));
+            intent.putExtra("streams_json", json);
             if (intent.resolveActivity(context.getPackageManager()) != null) {
                 context.startActivity(intent);
             } else {
-                // يمكنك هنا عرض رسالة للمستخدم لتثبيت تطبيق المشغل
-                // مثلاً: Toast.makeText(context, "الرجاء تثبيت مشغل الفيديو", Toast.LENGTH_SHORT).show();
+                  Toast.makeText(context, "الرجاء تثبيت مشغل الفيديو", Toast.LENGTH_SHORT).show();
             }
         });
     }

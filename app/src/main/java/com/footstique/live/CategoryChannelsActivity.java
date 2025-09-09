@@ -1,9 +1,12 @@
 package com.footstique.live;
 
+import android.content.ComponentName;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -59,7 +62,7 @@ public class CategoryChannelsActivity extends AppCompatActivity {
         // **هنا تم إضافة منطق تشغيل الفيديو**
         channelAdapter = new ChannelAdapter(this, channels, channel -> {
             Intent intent = new Intent();
-            intent.setClassName(this, "com.footstique.player.PlayerActivity");
+            intent.setComponent(new ComponentName("com.footstique.fsplayer","com.footstique.player.PlayerActivity"));
                 JSONArray arr = new JSONArray();
             for (Stream stream : channel.getStreams()) {
                     if (stream == null || stream.getUrl() == null || stream.getUrl().trim().isEmpty()) continue;
@@ -76,8 +79,8 @@ public class CategoryChannelsActivity extends AppCompatActivity {
                     } catch (JSONException ignored) {}
             }
                 String json = arr.toString();
-                intent.putExtra("EXTRA_STREAMS_JSON", json);
-            startActivity(intent);
+            intent.putExtra("streams_json", json);
+             startActivity(intent);
         });
         rvChannels.setAdapter(channelAdapter);
 
