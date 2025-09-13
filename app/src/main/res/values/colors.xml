@@ -8,7 +8,7 @@
     <color name="fs_grey_divider">#E0E0E0</color>
         <color name="bottom_nav_background">#FFFFFF</color>
         <color name="fs_nav_unselected">#757575</color>
-        <color name="fs_nav_selected">#FF5722</color>
+        <color name="fs_nav_selected">#ff8531</color>
 
     <color name="primary_color">#FF007BFF</color>
     <color name="primary_dark_color">#FF0056B3</color>
