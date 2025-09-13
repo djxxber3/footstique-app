@@ -25,7 +25,7 @@
             android:id="@+id/league_logo"
             android:layout_width="22dp"
             android:layout_height="22dp"
-            tools:src="@drawable/ic_matches" />
+            tools:src="@drawable/ic_matches_nav" />
 
         <TextView
             android:id="@+id/league_name"

@@ -46,7 +46,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/match_time"
             app:layout_constraintTop_toTopOf="parent"
-            tools:src="@drawable/ic_matches" />
+            tools:src="@drawable/ic_matches_nav" />
 
 
         <TextView
@@ -76,7 +76,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/match_time"
             app:layout_constraintTop_toTopOf="parent"
-            tools:src="@drawable/ic_matches" />
+            tools:src="@drawable/ic_matches_nav" />
 
 
         <TextView
