@@ -1,5 +1,5 @@
 <resources>
-        <string name="app_name">FootStique</string>
+        <string name="app_name">Footstique</string>
         <string name="update_required">Update Required</string>
         <string name="update_message">Please update the app to continue</string>
         <string name="visit_website">Visit Website</string>
@@ -21,6 +21,7 @@
         <string name="profile">Profile</string>
         <string name="matches">المباريات</string>
         <string name="channels">القنوات</string>
+        <string name="more">المزيد</string>
 
         <string name="match_channels">قنوات المباراة</string>
         <string name="no_channels_found">لا توجد قنوات متاحة لهذه المباراة حالياً</string>

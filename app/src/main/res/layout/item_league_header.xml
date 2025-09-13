@@ -8,7 +8,7 @@
     android:layout_marginEnd="8dp"
     android:layout_marginTop="4dp"
     android:layout_marginBottom="4dp"
-    app:cardBackgroundColor="#F5F5F5"
+    app:cardBackgroundColor="@color/league_header_bg"
     app:cardCornerRadius="8dp"
     app:cardElevation="0dp"
     app:strokeWidth="0dp">

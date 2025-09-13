@@ -1,11 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/nav_matches"
-        android:icon="@drawable/ic_matches"
-        android:title="@string/matches" />
+        android:icon="@drawable/ic_matches_nav"
+        android:title="@string/matches"
+        app:iconTint="@color/nav_matches_tint" />
     <item
         android:id="@+id/nav_channels"
-        android:icon="@drawable/ic_channels"
-        android:title="@string/channels" />
+        android:icon="@drawable/ic_channels_nav"
+        android:title="@string/channels"
+        app:iconTint="@color/nav_channels_tint" />
+    <item
+        android:id="@+id/nav_more"
+        android:icon="@drawable/ic_more"
+        android:title="@string/more"
+        app:iconTint="@color/nav_more_tint" />
 </menu>

@@ -20,6 +20,8 @@ import com.footstique.live.utils.ImageLoader;
 
 import java.text.SimpleDateFormat;
 import java.util.Locale;
+import java.util.TimeZone;
+import com.footstique.live.utils.TimeUtils;
 
 public class MatchDetailActivity extends AppCompatActivity {
 
@@ -71,7 +73,8 @@ public class MatchDetailActivity extends AppCompatActivity {
         );
 
         // Match date and status
-        SimpleDateFormat dateFormat = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm", Locale.getDefault());
+    SimpleDateFormat dateFormat = new SimpleDateFormat("EEE, dd MMM yyyy h:mm a", Locale.getDefault());
+    dateFormat.setTimeZone(TimeUtils.getPreferredTimeZone(this));
         tvMatchDate.setText(dateFormat.format(match.getKickoffTime()));
         tvMatchStatus.setText(match.getStatusText());
 

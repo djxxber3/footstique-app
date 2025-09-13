@@ -11,15 +11,13 @@ import java.util.List;
 public class ChannelCategory implements Serializable {
     private String id;
     private String name;
-    private String nameAr;
     private String logo;
     private int channelsCount;
     private List<Channel> channels;
 
-    public ChannelCategory(String id, String name, String nameAr, String logo, int channelsCount, List<Channel> channels) {
+    public ChannelCategory(String id, String name, String logo, int channelsCount, List<Channel> channels) {
         this.id = id;
         this.name = name;
-        this.nameAr = nameAr;
         this.logo = logo;
         this.channelsCount = channelsCount;
         this.channels = channels;
@@ -33,9 +31,6 @@ public class ChannelCategory implements Serializable {
         return name;
     }
 
-    public String getNameAr() {
-        return nameAr;
-    }
 
     public String getLogo() {
         return logo;
@@ -52,7 +47,6 @@ public class ChannelCategory implements Serializable {
     public static ChannelCategory fromJson(JSONObject jsonObject) throws JSONException {
         String id = jsonObject.getString("id");
         String name = jsonObject.getString("name");
-        String nameAr = jsonObject.getString("name_ar");
         String logo = jsonObject.getString("logo");
         int channelsCount = jsonObject.getInt("channels_count");
         
@@ -62,6 +56,6 @@ public class ChannelCategory implements Serializable {
             channels.add(Channel.fromJson(channelsArray.getJSONObject(i)));
         }
         
-        return new ChannelCategory(id, name, nameAr, logo, channelsCount, channels);
+        return new ChannelCategory(id, name, logo, channelsCount, channels);
     }
 }

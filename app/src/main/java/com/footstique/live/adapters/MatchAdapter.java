@@ -15,6 +15,11 @@ import com.footstique.live.utils.ImageLoader;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Locale;
+import java.util.TimeZone;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.style.RelativeSizeSpan;
+import com.footstique.live.utils.TimeUtils;
 
 public class MatchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
@@ -24,7 +29,7 @@ public class MatchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     private final Context context;
     private final List<Object> items; // قائمة تحتوي على دوريات ومباريات
     private final OnMatchClickListener listener;
-    private final SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm", Locale.US);
+    private final SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm a", Locale.getDefault());
 
     public interface OnMatchClickListener {
         void onMatchClick(Match match);
@@ -34,6 +39,8 @@ public class MatchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         this.context = context;
         this.items = items;
         this.listener = listener;
+        TimeZone tz = TimeUtils.getPreferredTimeZone(context);
+        timeFormat.setTimeZone(tz);
     }
 
     @Override
@@ -77,7 +84,15 @@ public class MatchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                 String score = match.getHomeTeam().getGoals() + " - " + match.getAwayTeam().getGoals();
                 matchHolder.matchTime.setText(score);
             } else {
-                matchHolder.matchTime.setText(timeFormat.format(match.getKickoffTime()));
+                String formatted = timeFormat.format(match.getKickoffTime());
+                int space = formatted.lastIndexOf(' ');
+                if (space > 0 && space < formatted.length() - 1) {
+                    SpannableString span = new SpannableString(formatted);
+                    span.setSpan(new RelativeSizeSpan(0.8f), space + 1, formatted.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    matchHolder.matchTime.setText(span);
+                } else {
+                    matchHolder.matchTime.setText(formatted);
+                }
             }
 
             matchHolder.itemView.setOnClickListener(v -> {

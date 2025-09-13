@@ -36,6 +36,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import com.footstique.live.utils.TimeUtils;
+import java.util.TimeZone;
 
 public class MatchesFragment extends Fragment implements MatchAdapter.OnMatchClickListener {
 
@@ -45,7 +47,7 @@ public class MatchesFragment extends Fragment implements MatchAdapter.OnMatchCli
     private TextView tvCurrentDate;
     private Calendar currentDate = Calendar.getInstance();
     private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
-   private SimpleDateFormat displayDateFormat = new SimpleDateFormat("EEE, MMM d, yyyy", Locale.getDefault());
+    private SimpleDateFormat displayDateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
     
     @Nullable
     @Override
@@ -60,21 +62,15 @@ public class MatchesFragment extends Fragment implements MatchAdapter.OnMatchCli
         // Set up RecyclerView
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         
-        // Set the current date
+    // Set the current date
         updateDateDisplay();
         
         // Set click listeners for navigation buttons
-        btnPreviousDay.setOnClickListener(v -> {
-            currentDate.add(Calendar.DAY_OF_MONTH, -1);
-            updateDateDisplay();
-            loadMatchesForDate(dateFormat.format(currentDate.getTime()));
-        });
+        btnPreviousDay.setOnClickListener(v -> changeDayBy(-1));
         
-        btnNextDay.setOnClickListener(v -> {
-            currentDate.add(Calendar.DAY_OF_MONTH, 1);
-            updateDateDisplay();
-            loadMatchesForDate(dateFormat.format(currentDate.getTime()));
-        });
+        btnNextDay.setOnClickListener(v -> changeDayBy(1));
+
+        // Swipe gestures disabled as requested; navigation via buttons and date picker only.
         
         // Set click listener for the date to show date picker
         tvCurrentDate.setOnClickListener(v -> showDatePicker());
@@ -86,7 +82,52 @@ public class MatchesFragment extends Fragment implements MatchAdapter.OnMatchCli
     }
     
     private void updateDateDisplay() {
+        TimeZone tz = TimeUtils.getPreferredTimeZone(requireContext());
+        displayDateFormat.setTimeZone(tz);
         tvCurrentDate.setText(displayDateFormat.format(currentDate.getTime()));
+        updateNavButtons();
+    }
+
+    private Calendar getTomorrow() {
+        Calendar tomorrow = Calendar.getInstance();
+        tomorrow.set(Calendar.HOUR_OF_DAY, 0);
+        tomorrow.set(Calendar.MINUTE, 0);
+        tomorrow.set(Calendar.SECOND, 0);
+        tomorrow.set(Calendar.MILLISECOND, 0);
+        tomorrow.add(Calendar.DAY_OF_MONTH, 1);
+        return tomorrow;
+    }
+
+    private boolean isSameDay(Calendar a, Calendar b) {
+        return a.get(Calendar.ERA) == b.get(Calendar.ERA)
+                && a.get(Calendar.YEAR) == b.get(Calendar.YEAR)
+                && a.get(Calendar.DAY_OF_YEAR) == b.get(Calendar.DAY_OF_YEAR);
+    }
+
+    private void updateNavButtons() {
+        if (btnNextDay == null) return;
+        Calendar tomorrow = getTomorrow();
+        boolean atOrAfterTomorrow = isSameDay(currentDate, tomorrow) || currentDate.after(tomorrow);
+        btnNextDay.setEnabled(!atOrAfterTomorrow);
+        btnNextDay.setAlpha(atOrAfterTomorrow ? 0.4f : 1.0f);
+    }
+
+    private void changeDayBy(int delta) {
+        if (delta > 0) {
+            Calendar tomorrow = getTomorrow();
+            if (isSameDay(currentDate, tomorrow)) {
+                updateNavButtons();
+                return;
+            }
+            currentDate.add(Calendar.DAY_OF_MONTH, 1);
+            if (currentDate.after(tomorrow)) {
+                currentDate = (Calendar) tomorrow.clone();
+            }
+        } else if (delta < 0) {
+            currentDate.add(Calendar.DAY_OF_MONTH, -1);
+        }
+        updateDateDisplay();
+        loadMatchesForDate(dateFormat.format(currentDate.getTime()));
     }
     
     private void showDatePicker() {
@@ -96,6 +137,10 @@ public class MatchesFragment extends Fragment implements MatchAdapter.OnMatchCli
                     currentDate.set(Calendar.YEAR, year);
                     currentDate.set(Calendar.MONTH, month);
                     currentDate.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                    Calendar tomorrow = getTomorrow();
+                    if (currentDate.after(tomorrow)) {
+                        currentDate = (Calendar) tomorrow.clone();
+                    }
                     updateDateDisplay();
                     loadMatchesForDate(dateFormat.format(currentDate.getTime()));
                 },
@@ -103,6 +148,12 @@ public class MatchesFragment extends Fragment implements MatchAdapter.OnMatchCli
                 currentDate.get(Calendar.MONTH),
                 currentDate.get(Calendar.DAY_OF_MONTH)
         );
+        Calendar max = getTomorrow();
+        max.set(Calendar.HOUR_OF_DAY, 23);
+        max.set(Calendar.MINUTE, 59);
+        max.set(Calendar.SECOND, 59);
+        max.set(Calendar.MILLISECOND, 999);
+        datePickerDialog.getDatePicker().setMaxDate(max.getTimeInMillis());
         datePickerDialog.show();
     }
     
