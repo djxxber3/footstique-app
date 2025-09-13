@@ -11,22 +11,20 @@
         android:id="@+id/viewPager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@id/bottom_navigation" />
+        android:layout_above="@id/bubbleTabBar" />
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottom_navigation"
+    <io.ak1.BubbleTabBar
+        android:id="@+id/bubbleTabBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:background="@color/app_background"
-        android:paddingTop="0dp"
-        android:paddingBottom="0dp"
-        app:itemIconTint="@color/bottom_nav_item_tint"
-        app:itemTextColor="@color/bottom_nav_item_tint"
-        app:itemIconSize="26dp"
-        app:labelVisibilityMode="labeled"
-        app:itemTextAppearanceActive="@style/CustomBottomNavTextAppearance"
-        app:itemTextAppearanceInactive="@style/CustomBottomNavTextAppearance"
-        app:menu="@menu/bottom_nav_menu" />
+        android:elevation="16dp"
+        android:padding="7dp"
+        app:bubbletab_disabled_icon_color="@color/fs_nav_unselected"
+        app:bubbletab_icon_size="20dp"
+        app:bubbletab_menuResource="@menu/bottom_nav_menu"
+        app:bubbletab_title_size="14sp"
+        app:bubbletab_vertical_padding="10dp" />
 
 </RelativeLayout>

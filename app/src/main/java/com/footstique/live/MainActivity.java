@@ -3,13 +3,16 @@ package com.footstique.live;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager2.widget.ViewPager2;
+
 import com.footstique.live.adapters.ViewPagerAdapter;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import io.ak1.BubbleTabBar;
+import io.ak1.OnBubbleClickListener;
 
 public class MainActivity extends AppCompatActivity {
 
     private ViewPager2 viewPager;
-    private BottomNavigationView bottomNavigationView;
+    private BubbleTabBar bubbleTabBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,39 +20,32 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         viewPager = findViewById(R.id.viewPager);
-        bottomNavigationView = findViewById(R.id.bottom_navigation);
+        bubbleTabBar = findViewById(R.id.bubbleTabBar);
 
         ViewPagerAdapter adapter = new ViewPagerAdapter(this);
         viewPager.setAdapter(adapter);
-        viewPager.setUserInputEnabled(false);
+        viewPager.setUserInputEnabled(false); // لمنع التمرير بالسحب
 
-        bottomNavigationView.setOnItemSelectedListener(item -> {
-            int itemId = item.getItemId();
-            if (itemId == R.id.nav_matches) {
-                viewPager.setCurrentItem(0, false);
-            } else if (itemId == R.id.nav_channels) {
-                viewPager.setCurrentItem(1, false);
-            } else if (itemId == R.id.nav_more) {
-                viewPager.setCurrentItem(2, false);
+        // ربط الفوتر بالـ ViewPager
+        bubbleTabBar.addBubbleListener(new OnBubbleClickListener() {
+            @Override
+            public void onBubbleClick(int id) {
+                if (id == R.id.nav_matches) {
+                    viewPager.setCurrentItem(0, false);
+                } else if (id == R.id.nav_channels) {
+                    viewPager.setCurrentItem(1, false);
+                } else if (id == R.id.nav_more) {
+                    viewPager.setCurrentItem(2, false);
+                }
             }
-            return true;
         });
 
+        // ربط الـ ViewPager بالفوتر (للتحديث عند التغيير)
         viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
             public void onPageSelected(int position) {
                 super.onPageSelected(position);
-                switch (position) {
-                    case 0:
-                        bottomNavigationView.setSelectedItemId(R.id.nav_matches);
-                        break;
-                    case 1:
-                        bottomNavigationView.setSelectedItemId(R.id.nav_channels);
-                        break;
-                    case 2:
-                        bottomNavigationView.setSelectedItemId(R.id.nav_more);
-                        break;
-                }
+                bubbleTabBar.setSelected(position, false);
             }
         });
     }
