@@ -4,9 +4,11 @@
     <color name="white">#FFFFFFFF</color>
 
     <color name="fs_orange">#FF5722</color>
-    <color name="fs_nav_selected">#FF5722</color>
     <color name="fs_light_grey">#D3D3D3</color>
     <color name="fs_grey_divider">#E0E0E0</color>
+        <color name="bottom_nav_background">#FFFFFF</color>
+        <color name="fs_nav_unselected">#757575</color>
+        <color name="fs_nav_selected">#FF5722</color>
 
     <color name="primary_color">#FF007BFF</color>
     <color name="primary_dark_color">#FF0056B3</color>
@@ -23,13 +25,7 @@
 
     <color name="app_background">#F8F9FB</color>
     <color name="league_header_bg">#DDE0E6</color>
-    
-    <!-- Bottom navigation palette -->
-    <color name="bottom_nav_background">#F8F9FB</color> <!-- نفس لون الخلفية في الصفحات -->
-    <!-- Lighter unselected to read well on dark background -->
-    <color name="fs_nav_unselected">#B3FFFFFF</color>
 
-    <!-- Bottom nav custom palette (fix for MainActivity errors) -->
     <color name="bottom_nav_selected_bg">#2C2C2C</color> <!-- خلفية الزر المحدد داكنة جداً -->
     <!-- نص التبويب المختار في الفوتر نفس لون الأيقونة الخاصة به -->
     <color name="bottom_nav_selected_text">#FFD700</color> <!-- افتراضي: ذهبي للثوات -->

@@ -11,60 +11,16 @@
         android:id="@+id/viewPager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@id/bottom_nav_group" />
+        android:layout_above="@id/bottom_navigation" />
 
-    <com.google.android.material.button.MaterialButtonToggleGroup
-        android:id="@+id/bottom_nav_group"
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:background="@color/bottom_nav_background"
-        android:padding="8dp"
-        app:selectionRequired="true"
-        app:singleSelection="true">
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_matches"
-            style="@style/Widget.Material3.Button.TextButton"
-            android:layout_width="0dp"
-            android:layout_height="48dp"
-            android:layout_weight="1"
-            android:text="@string/matches"
-            android:textAllCaps="false"
-            android:textColor="@color/bottom_nav_text_tint"
-            app:icon="@drawable/ic_matches_nav"
-            app:iconGravity="textStart"
-            app:iconPadding="8dp"
-            app:iconTint="@color/bottom_nav_icon_tint" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_channels"
-            style="@style/Widget.Material3.Button.TextButton"
-            android:layout_width="0dp"
-            android:layout_height="48dp"
-            android:layout_weight="1"
-            android:text="@string/channels"
-            android:textAllCaps="false"
-            android:textColor="@color/bottom_nav_text_tint"
-            app:icon="@drawable/ic_channels_nav"
-            app:iconGravity="textStart"
-            app:iconPadding="8dp"
-            app:iconTint="@color/bottom_nav_icon_tint" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_more"
-            style="@style/Widget.Material3.Button.TextButton"
-            android:layout_width="0dp"
-            android:layout_height="48dp"
-            android:layout_weight="1"
-            android:text="@string/more"
-            android:textAllCaps="false"
-            android:textColor="@color/bottom_nav_text_tint"
-            app:icon="@drawable/ic_more"
-            app:iconGravity="textStart"
-            app:iconPadding="8dp"
-            app:iconTint="@color/bottom_nav_icon_tint" />
-
-    </com.google.android.material.button.MaterialButtonToggleGroup>
+        app:itemIconTint="@color/bottom_nav_item_tint"
+        app:itemTextColor="@color/bottom_nav_item_tint"
+        app:menu="@menu/bottom_nav_menu" />
 
 </RelativeLayout>
