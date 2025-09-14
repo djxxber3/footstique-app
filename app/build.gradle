@@ -41,7 +41,6 @@ android {
 
 dependencies {
     implementation libs.appcompat
-    implementation  libs.bubbletabbar
     implementation libs.material
     implementation libs.viewpager2
     implementation libs.cardview

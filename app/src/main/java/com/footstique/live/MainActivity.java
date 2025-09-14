@@ -1,18 +1,18 @@
 package com.footstique.live;
 
 import android.os.Bundle;
+import android.view.MenuItem;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager2.widget.ViewPager2;
-
 import com.footstique.live.adapters.ViewPagerAdapter;
-
-import io.ak1.BubbleTabBar;
-import io.ak1.OnBubbleClickListener;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationBarView;
 
 public class MainActivity extends AppCompatActivity {
 
     private ViewPager2 viewPager;
-    private BubbleTabBar bubbleTabBar;
+    private BottomNavigationView bottomNavigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,32 +20,37 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         viewPager = findViewById(R.id.viewPager);
-        bubbleTabBar = findViewById(R.id.bubbleTabBar);
+        bottomNavigationView = findViewById(R.id.bottom_navigation);
 
         ViewPagerAdapter adapter = new ViewPagerAdapter(this);
         viewPager.setAdapter(adapter);
         viewPager.setUserInputEnabled(false); // لمنع التمرير بالسحب
 
-        // ربط الفوتر بالـ ViewPager
-        bubbleTabBar.addBubbleListener(new OnBubbleClickListener() {
+        // ربط الضغط على الأيقونات بالـ ViewPager
+        bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
-            public void onBubbleClick(int id) {
-                if (id == R.id.nav_matches) {
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                int itemId = item.getItemId();
+                if (itemId == R.id.nav_matches) {
                     viewPager.setCurrentItem(0, false);
-                } else if (id == R.id.nav_channels) {
+                    return true;
+                } else if (itemId == R.id.nav_channels) {
                     viewPager.setCurrentItem(1, false);
-                } else if (id == R.id.nav_more) {
+                    return true;
+                } else if (itemId == R.id.nav_more) {
                     viewPager.setCurrentItem(2, false);
+                    return true;
                 }
+                return false;
             }
         });
 
-        // ربط الـ ViewPager بالفوتر (للتحديث عند التغيير)
+        // ربط تمرير الـ ViewPager بتحديد الأيقونة
         viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
             public void onPageSelected(int position) {
                 super.onPageSelected(position);
-                bubbleTabBar.setSelected(position, false);
+                bottomNavigationView.getMenu().getItem(position).setChecked(true);
             }
         });
     }
