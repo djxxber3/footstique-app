@@ -30,6 +30,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/Appearance"
+                    android:textSize="16sp"
                     android:textAppearance="?attr/textAppearanceHeadline6"
                     android:layout_marginBottom="8dp" />
 
@@ -45,7 +46,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="@string/light"
-                        android:textSize="16sp"
+                        android:textSize="14sp"
                         android:layout_marginStart="16dp" />
 
                     <Switch
@@ -76,6 +77,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/language"
+                    android:textSize="16sp"
                     android:textAppearance="?attr/textAppearanceHeadline6"
                     android:layout_marginBottom="8dp" />
 
@@ -100,7 +102,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="@string/arabic"
-                        android:textSize="16sp"
+                        android:textSize="14sp"
                         android:layout_marginStart="16dp" />
 
                     <ImageView
@@ -129,6 +131,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/Social_media"
+                    android:textSize="16sp"
                     android:textAppearance="?attr/textAppearanceHeadline6"
                     android:layout_marginBottom="8dp" />
 
@@ -147,7 +150,7 @@
                         android:contentDescription="Telegram" />
                     <TextView
                         android:text="@string/Follow_us_on_Telegram"
-                        android:textSize="16sp"
+                        android:textSize="14sp"
                         android:layout_marginStart="16dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
@@ -168,7 +171,7 @@
                         android:contentDescription="Facebook" />
                     <TextView
                         android:text="@string/Our_Facebook_page"
-                        android:textSize="16sp"
+                        android:textSize="14sp"
                         android:layout_marginStart="16dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
@@ -189,7 +192,7 @@
                         android:contentDescription="Website" />
                     <TextView
                         android:text="@string/Visit_our_website"
-                        android:textSize="16sp"
+                        android:textSize="14sp"
                         android:layout_marginStart="16dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
@@ -215,6 +218,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/about_app"
+                    android:textSize="16sp"
                     android:textAppearance="?attr/textAppearanceHeadline6"
                     android:layout_marginBottom="8dp" />
 
@@ -233,7 +237,7 @@
                         android:contentDescription="@string/about" />
                     <TextView
                         android:text="@string/about_app"
-                        android:textSize="16sp"
+                        android:textSize="14sp"
                         android:layout_marginStart="16dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
@@ -254,7 +258,7 @@
                         android:contentDescription="@string/policy" />
                     <TextView
                         android:text="@string/privacy_policy"
-                        android:textSize="16sp"
+                        android:textSize="14sp"
                         android:layout_marginStart="16dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
