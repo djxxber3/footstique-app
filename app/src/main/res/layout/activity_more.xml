@@ -89,26 +89,6 @@
             android:layout_height="1dp"
             android:background="#E0E0E0" />
 
-        <!-- Website -->
-        <LinearLayout
-            android:id="@+id/website_layout"
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:padding="8dp">
-            <ImageView
-                android:src="@drawable/ic_website"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:contentDescription="Website" />
-            <TextView
-                android:text="زوروا موقعنا"
-                android:textSize="16sp"
-                android:layout_marginStart="16dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
 
         <View
             android:layout_width="match_parent"
@@ -141,6 +121,26 @@
             android:layout_height="1dp"
             android:background="#E0E0E0" />
 
+        <!-- Website -->
+        <LinearLayout
+            android:id="@+id/website_layout"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:padding="8dp">
+            <ImageView
+                android:src="@drawable/ic_website"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:contentDescription="Website" />
+            <TextView
+                android:text="زوروا موقعنا"
+                android:textSize="16sp"
+                android:layout_marginStart="16dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
         <!-- About & Policy Section -->
         <TextView
             android:text="حول التطبيق"

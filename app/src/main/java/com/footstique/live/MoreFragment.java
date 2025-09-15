@@ -49,7 +49,7 @@ public class MoreFragment extends Fragment {
         // الموقع الإلكتروني
         LinearLayout websiteLayout = view.findViewById(R.id.website_layout);
         websiteLayout.setOnClickListener(v -> {
-            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://footstique.com"));
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://footstique.app"));
             startActivity(intent);
         });
 
