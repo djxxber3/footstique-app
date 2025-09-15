@@ -90,18 +90,27 @@
                     android:gravity="center_vertical"
                     android:padding="8dp"
                     android:background="?attr/selectableItemBackground">
+
                     <ImageView
                         android:src="@drawable/ic_language"
                         android:layout_width="24dp"
                         android:layout_height="24dp"
-                        android:contentDescription="Language" />
+                        android:contentDescription="@string/language" />
+
                     <TextView
                         android:id="@+id/selected_language_textview"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:text="@string/arabic"
                         android:textSize="16sp"
-                        android:layout_marginStart="16dp"
+                        android:layout_marginStart="16dp" />
+
+                    <ImageView
+                        android:src="@drawable/ic_chevron_right"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"/>
+
                 </LinearLayout>
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>

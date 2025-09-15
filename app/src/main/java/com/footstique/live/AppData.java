@@ -12,7 +12,10 @@ public class AppData {
     private List<Match> matches = new ArrayList<>();
     private List<ChannelCategory> categories = new ArrayList<>();
     private String serverUrl;
-    
+    public static final String WEBSITE_URL = "https://footstique.app";
+    public static final String FACEBOOK_URL = "https://facebook.com/footstique";
+    public static final String TELEGRAM_URL = "https://t.me/footstique";
+
     private AppData() {
         // Private constructor to prevent instantiation
     }
