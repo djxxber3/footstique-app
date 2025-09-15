@@ -14,6 +14,7 @@ import com.footstique.live.models.MatchChannel;
 import com.footstique.live.models.Team;
 import com.footstique.live.utils.TimeUtils;
 
+import java.text.DateFormatSymbols;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +27,7 @@ public class MatchDetailActivity extends AppCompatActivity {
     // Views for the top card (Teams and Score)
     private ImageView ivCompetitionLogo, ivHomeTeamLogo, ivAwayTeamLogo;
     private TextView tvCompetitionName;
-    private TextView tvHomeTeamName, tvAwayTeamName, tvHomeTeamGoals, tvAwayTeamGoals, tvKickoffTime;
+    private TextView tvHomeTeamName, tvAwayTeamName, tvKickoffTime;
 
     // Views for the details list
     private TextView tvCompetitionValue, tvStadiumValue, tvBroadcastingChannelValue, tvMatchTimeValue, tvMatchDateValue;
@@ -80,8 +81,6 @@ public class MatchDetailActivity extends AppCompatActivity {
         ivAwayTeamLogo = findViewById(R.id.ivAwayTeamLogo);
         tvHomeTeamName = findViewById(R.id.tvHomeTeamName);
         tvAwayTeamName = findViewById(R.id.tvAwayTeamName);
-        tvHomeTeamGoals = findViewById(R.id.tvHomeTeamGoals);
-        tvAwayTeamGoals = findViewById(R.id.tvAwayTeamGoals);
         tvKickoffTime = findViewById(R.id.tvKickoffTime);
 
         // New detail views
@@ -104,13 +103,11 @@ public class MatchDetailActivity extends AppCompatActivity {
         Team homeTeam = match.getHomeTeam();
         tvHomeTeamName.setText(homeTeam.getName());
         com.bumptech.glide.Glide.with(this).load(homeTeam.getLogo()).into(ivHomeTeamLogo);
-        tvHomeTeamGoals.setText(homeTeam.getGoals() != null ? String.valueOf(homeTeam.getGoals()) : "-");
 
         // Away team
         Team awayTeam = match.getAwayTeam();
         tvAwayTeamName.setText(awayTeam.getName());
         com.bumptech.glide.Glide.with(this).load(awayTeam.getLogo()).into(ivAwayTeamLogo);
-        tvAwayTeamGoals.setText(awayTeam.getGoals() != null ? String.valueOf(awayTeam.getGoals()) : "-");
 
         // --- 2. Details List ---
 
@@ -132,17 +129,24 @@ public class MatchDetailActivity extends AppCompatActivity {
         String channelsString = TextUtils.join("، ", channelNames);
         tvBroadcastingChannelValue.setText(channelsString.isEmpty() ? "غير متوفر" : channelsString);
 
-        // Match Time
-        SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm a (z)", new Locale("ar"));
+        // 1. Initialize DateFormatSymbols with Arabic AM/PM strings
+        DateFormatSymbols arSymbols = new DateFormatSymbols();
+        arSymbols.setAmPmStrings(new String[]{"ص", "م"});
+
+// 2. Setup Match Time format
+        SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm a (z)", Locale.US); // Use Locale.US for Latin numbers
+        timeFormat.setDateFormatSymbols(arSymbols); // Apply custom AM/PM symbols
         timeFormat.setTimeZone(TimeUtils.getPreferredTimeZone(this));
         tvMatchTimeValue.setText(timeFormat.format(match.getKickoffTime()));
 
-        SimpleDateFormat timeOnlyFormat = new SimpleDateFormat("hh:mm a", new Locale("ar"));
+// 3. Setup Kickoff Time format
+        SimpleDateFormat timeOnlyFormat = new SimpleDateFormat("hh:mm a", Locale.US); // Use Locale.US for Latin numbers
+        timeOnlyFormat.setDateFormatSymbols(arSymbols); // Apply custom AM/PM symbols
         timeOnlyFormat.setTimeZone(TimeUtils.getPreferredTimeZone(this));
         tvKickoffTime.setText(timeOnlyFormat.format(match.getKickoffTime()));
 
-        // Match Date
-        SimpleDateFormat dateFormat = new SimpleDateFormat("EEEE (dd-MM-yyyy)", new Locale("ar"));
+// 4. Setup Match Date format (this correctly uses Arabic day names with Latin numbers)
+        SimpleDateFormat dateFormat = new SimpleDateFormat("EEEE (dd-MM-yyyy)", new Locale("ar-u-nu-latn"));
         dateFormat.setTimeZone(TimeUtils.getPreferredTimeZone(this));
         tvMatchDateValue.setText(dateFormat.format(match.getKickoffTime()));
     }

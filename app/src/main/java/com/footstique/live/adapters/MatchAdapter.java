@@ -1,6 +1,9 @@
 package com.footstique.live.adapters;
 
 import android.content.Context;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.style.RelativeSizeSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,17 +11,18 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.footstique.live.R;
 import com.footstique.live.models.Competition;
 import com.footstique.live.models.Match;
+import com.footstique.live.utils.TimeUtils;
+
+import java.text.DateFormatSymbols;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
-import android.text.SpannableString;
-import android.text.Spanned;
-import android.text.style.RelativeSizeSpan;
-import com.footstique.live.utils.TimeUtils;
 
 public class MatchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
@@ -26,20 +30,27 @@ public class MatchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     private static final int TYPE_MATCH = 1;
 
     private final Context context;
-    private final List<Object> items; // قائمة تحتوي على دوريات ومباريات
+    private final List<Object> items;
     private final OnMatchClickListener listener;
-    private final SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm a", Locale.US);
+    private final SimpleDateFormat timeFormat;
+    private final TimeZone preferredTimeZone; // تم تعريف المتغير هنا
 
     public interface OnMatchClickListener {
         void onMatchClick(Match match);
     }
 
+    // تم تعديل الـ Constructor بالكامل
     public MatchAdapter(Context context, List<Object> items, OnMatchClickListener listener) {
         this.context = context;
         this.items = items;
         this.listener = listener;
-        TimeZone tz = TimeUtils.getPreferredTimeZone(context);
-        timeFormat.setTimeZone(tz);
+        this.preferredTimeZone = TimeUtils.getPreferredTimeZone(context);
+// Use Locale.US to force Latin digits, then set custom symbols
+        this.timeFormat = new SimpleDateFormat("hh:mm a", Locale.US);
+        DateFormatSymbols arSymbols = new DateFormatSymbols();
+        arSymbols.setAmPmStrings(new String[]{"ص", "م"});
+        this.timeFormat.setDateFormatSymbols(arSymbols);
+        this.timeFormat.setTimeZone(this.preferredTimeZone);
     }
 
     @Override
@@ -69,30 +80,30 @@ public class MatchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             HeaderViewHolder headerHolder = (HeaderViewHolder) holder;
             Competition competition = (Competition) items.get(position);
             headerHolder.leagueName.setText(competition.getName());
-            com.bumptech.glide.Glide.with(context)
-                .load(competition.getLogo())
-                .placeholder(R.color.fs_dark_grey_secondary)
-                .error(R.color.fs_dark_grey_secondary)
-                .diskCacheStrategy(com.bumptech.glide.load.engine.DiskCacheStrategy.ALL)
-                .into(headerHolder.leagueLogo);
+            Glide.with(context)
+                    .load(competition.getLogo())
+                    .placeholder(R.color.fs_dark_grey_secondary)
+                    .error(R.color.fs_dark_grey_secondary)
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .into(headerHolder.leagueLogo);
         } else {
             MatchViewHolder matchHolder = (MatchViewHolder) holder;
             Match match = (Match) items.get(position);
 
             matchHolder.homeTeamName.setText(match.getHomeTeam().getName());
             matchHolder.awayTeamName.setText(match.getAwayTeam().getName());
-            com.bumptech.glide.Glide.with(context)
-                .load(match.getHomeTeam().getLogo())
-                .placeholder(R.color.fs_dark_grey_secondary)
-                .error(R.color.fs_dark_grey_secondary)
-                .diskCacheStrategy(com.bumptech.glide.load.engine.DiskCacheStrategy.ALL)
-                .into(matchHolder.homeTeamLogo);
-            com.bumptech.glide.Glide.with(context)
-                .load(match.getAwayTeam().getLogo())
-                .placeholder(R.color.fs_dark_grey_secondary)
-                .error(R.color.fs_dark_grey_secondary)
-                .diskCacheStrategy(com.bumptech.glide.load.engine.DiskCacheStrategy.ALL)
-                .into(matchHolder.awayTeamLogo);
+            Glide.with(context)
+                    .load(match.getHomeTeam().getLogo())
+                    .placeholder(R.color.fs_dark_grey_secondary)
+                    .error(R.color.fs_dark_grey_secondary)
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .into(matchHolder.homeTeamLogo);
+            Glide.with(context)
+                    .load(match.getAwayTeam().getLogo())
+                    .placeholder(R.color.fs_dark_grey_secondary)
+                    .error(R.color.fs_dark_grey_secondary)
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .into(matchHolder.awayTeamLogo);
 
             if (match.getStatus().equals("LIVE") || match.getStatus().equals("FT")) {
                 String score = match.getHomeTeam().getGoals() + " - " + match.getAwayTeam().getGoals();
@@ -122,7 +133,6 @@ public class MatchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         return items.size();
     }
 
-    // ViewHolder لرأس الدوري
     static class HeaderViewHolder extends RecyclerView.ViewHolder {
         ImageView leagueLogo;
         TextView leagueName;
@@ -134,7 +144,6 @@ public class MatchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         }
     }
 
-    // ViewHolder للمباراة (لاحظ تغيير IDs)
     static class MatchViewHolder extends RecyclerView.ViewHolder {
         TextView homeTeamName, awayTeamName, matchTime;
         ImageView homeTeamLogo, awayTeamLogo;
