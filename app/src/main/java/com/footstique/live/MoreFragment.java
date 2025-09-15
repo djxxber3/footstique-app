@@ -52,7 +52,8 @@ public class MoreFragment extends Fragment {
 
     private void initializeViews(View view) {
         // Theme
-        themeLayout = view.findViewById(R.id.theme_layout);
+        themeLayout = view.findViewById(R.id
+                .theme_layout);
         selectedThemeTextView = view.findViewById(R.id.selected_theme_textview);
 
         // Language
