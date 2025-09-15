@@ -1,6 +1,8 @@
 package com.footstique.live;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -16,28 +18,31 @@ import androidx.fragment.app.Fragment;
 public class MoreFragment extends Fragment {
 
     private Switch switchTheme;
-    private boolean isDarkMode = false;
+    private SharedPreferences sharedPreferences;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        // هنا نقوم بربط ملف التصميم الصحيح
         View view = inflater.inflate(R.layout.activity_more, container, false);
 
-        // مفتاح الوضع الداكن/الفاتح
+        sharedPreferences = requireActivity().getSharedPreferences("theme_prefs", Context.MODE_PRIVATE);
+
         switchTheme = view.findViewById(R.id.switch_theme);
-        // تحقق من الوضع الحالي لتحديث المفتاح
-        int currentNightMode = getResources().getConfiguration().uiMode & android.content.res.Configuration.UI_MODE_NIGHT_MASK;
-        isDarkMode = currentNightMode == android.content.res.Configuration.UI_MODE_NIGHT_YES;
+        boolean isDarkMode = sharedPreferences.getBoolean("is_dark_mode", false);
         switchTheme.setChecked(isDarkMode);
 
         switchTheme.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putBoolean("is_dark_mode", isChecked);
+            editor.apply();
+
             if (isChecked) {
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
             } else {
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
             }
         });
+
 
         // تيليجرام
         LinearLayout telegramLayout = view.findViewById(R.id.telegram_layout);
