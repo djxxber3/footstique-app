@@ -5,7 +5,7 @@
     <string name="visit_website">زيارة الموقع</string>
     <string name="error_loading_data">خطأ في تحميل البيانات</string>
     <string name="no_matches">لا توجد مباريات لهذا اليوم</string>
-    <string name="no_channels">لم يتم العثور على قنوات</string>
+    <string name="no_channels">لا توجد قنوات</string>
     <string name="choose_date">اختر التاريخ</string>
     <string name="stream_quality">جودة البث</string>
     <string name="matches_today">%d مباراة اليوم</string>
@@ -42,4 +42,17 @@
     <string name="dark">داكن</string>
     <string name="system_default">افتراضي النظام</string>
     <string name="appearance">المظهر</string>
+
+    <string name="about_app">حول التطبيق</string>
+    <string name="about_app_text">هذا التطبيق يهدف لتقديم تجربة تسوق عصرية وسهلة للمستخدمين.</string>
+    <string name="about_appp">حول التطبيق</string>
+    <string name="about">حول</string>
+    <string name="policy">السياسة</string>
+    <string name="privacy_policy">سياسة الخصوصية</string>
+    <string name="about_apppp">حول التطبيق</string>
+    <string name="Visit_our_website">زوروا موقعنا</string>
+    <string name="Our_Facebook_page">صفحتنا على فيسبوك</string>
+    <string name="Follow_us_on_Telegram">تابعنا على تيليجرام</string>
+    <string name="Social_media">وسائل التواصل الاجتماعي</string>
+    <string name="Appearance">المظهر</string>
 </resources>

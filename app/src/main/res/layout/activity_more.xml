@@ -28,7 +28,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="المظهر"
+                    android:text="@string/Appearance"
                     android:textAppearance="?attr/textAppearanceHeadline6"
                     android:layout_marginBottom="8dp" />
 
@@ -43,7 +43,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Light"
+                        android:text="@string/light"
                         android:textSize="16sp"
                         android:layout_marginStart="16dp" />
 
@@ -125,7 +125,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="التواصل الاجتماعي"
+                    android:text="@string/Social_media"
                     android:textAppearance="?attr/textAppearanceHeadline6"
                     android:layout_marginBottom="8dp" />
 
@@ -143,7 +143,7 @@
                         android:layout_height="24dp"
                         android:contentDescription="Telegram" />
                     <TextView
-                        android:text="تابعنا على تيليجرام"
+                        android:text="@string/Follow_us_on_Telegram"
                         android:textSize="16sp"
                         android:layout_marginStart="16dp"
                         android:layout_width="wrap_content"
@@ -164,7 +164,7 @@
                         android:layout_height="24dp"
                         android:contentDescription="Facebook" />
                     <TextView
-                        android:text="صفحتنا على فيسبوك"
+                        android:text="@string/Our_Facebook_page"
                         android:textSize="16sp"
                         android:layout_marginStart="16dp"
                         android:layout_width="wrap_content"
@@ -185,7 +185,7 @@
                         android:layout_height="24dp"
                         android:contentDescription="Website" />
                     <TextView
-                        android:text="زوروا موقعنا"
+                        android:text="@string/Visit_our_website"
                         android:textSize="16sp"
                         android:layout_marginStart="16dp"
                         android:layout_width="wrap_content"
@@ -209,7 +209,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="حول التطبيق"
+                    android:text="@string/about_app"
                     android:textAppearance="?attr/textAppearanceHeadline6"
                     android:layout_marginBottom="8dp" />
 
@@ -225,9 +225,9 @@
                         android:src="@drawable/ic_info"
                         android:layout_width="24dp"
                         android:layout_height="24dp"
-                        android:contentDescription="About" />
+                        android:contentDescription="@string/about" />
                     <TextView
-                        android:text="حول التطبيق"
+                        android:text="@string/about_app"
                         android:textSize="16sp"
                         android:layout_marginStart="16dp"
                         android:layout_width="wrap_content"
@@ -246,9 +246,9 @@
                         android:src="@drawable/ic_policy"
                         android:layout_width="24dp"
                         android:layout_height="24dp"
-                        android:contentDescription="Policy" />
+                        android:contentDescription="@string/policy" />
                     <TextView
-                        android:text="سياسة الخصوصية"
+                        android:text="@string/privacy_policy"
                         android:textSize="16sp"
                         android:layout_marginStart="16dp"
                         android:layout_width="wrap_content"
