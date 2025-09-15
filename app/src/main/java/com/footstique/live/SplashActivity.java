@@ -50,14 +50,7 @@ public class SplashActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
-        // Set default language to Arabic
-        java.util.Locale locale = new java.util.Locale("ar");
-        java.util.Locale.setDefault(locale);
-        android.content.res.Configuration config = new android.content.res.Configuration();
-        config.locale = locale;
-        getResources().updateConfiguration(config, getResources().getDisplayMetrics());
         // Apply the saved theme
         SharedPreferences sharedPreferences = getSharedPreferences("theme_prefs", MODE_PRIVATE);
         boolean isDarkMode = sharedPreferences.getBoolean("is_dark_mode", false);
@@ -197,23 +190,5 @@ public class SplashActivity extends AppCompatActivity {
             connection.disconnect();
         }
     }
-    // --- Language Configuration ---
-    @Override
-    protected void attachBaseContext(Context newBase) {
-        super.attachBaseContext(updateBaseContextLocale(newBase));
-    }
 
-    private Context updateBaseContextLocale(Context context) {
-        // Fetch the stored language code, default to device language if not found
-        SharedPreferences languagePrefs = context.getSharedPreferences("language_prefs", Context.MODE_PRIVATE);
-        String language = languagePrefs.getString("language", java.util.Locale.getDefault().getLanguage());
-
-        java.util.Locale locale = new java.util.Locale(language);
-        java.util.Locale.setDefault(locale);
-
-        android.content.res.Configuration config = new android.content.res.Configuration(context.getResources().getConfiguration());
-        config.setLocale(locale);
-
-        return context.createConfigurationContext(config);
-    }
 }
