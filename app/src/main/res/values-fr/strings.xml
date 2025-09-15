@@ -1,0 +1,45 @@
+<resources>
+    <string name="app_name">Footstique</string>
+    <string name="update_required">Mise à jour requise</string>
+    <string name="update_message">Veuillez mettre à jour l\'application pour continuer</string>
+    <string name="visit_website">Visitez le site Web</string>
+    <string name="error_loading_data">Erreur de chargement des données</string>
+    <string name="no_matches">Aucun match trouvé pour ce jour</string>
+    <string name="no_channels">Aucune chaîne trouvée</string>
+    <string name="choose_date">Choisir la date</string>
+    <string name="stream_quality">Qualité du flux</string>
+    <string name="matches_today">%d matchs aujourd\'hui</string>
+    <string name="channels_count">%d chaînes</string>
+    <string name="channel_details">Détails de la chaîne</string>
+    <string name="latest_matches">Derniers matchs</string>
+    <string name="news_and_updates">Actualités et mises à jour</string>
+    <string name="watch">Regarder</string>
+    <string name="home_team_logo">Logo de l\'équipe à domicile</string>
+    <string name="away_team_logo">Logo de l\'équipe à l\'extérieur</string>
+    <string name="home">Accueil</string>
+    <string name="favorites">Favoris</string>
+    <string name="profile">Profil</string>
+    <string name="matches">Matchs</string>
+    <string name="channels">Chaînes</string>
+    <string name="more">Plus</string>
+    <string name="language">Langue</string>
+    <string name="arabic">Arabe</string>
+    <string name="french">Français</string>
+    <string name="english">Anglais</string>
+    <string name="match_channels">Chaînes du match</string>
+    <string name="no_channels_found">Aucune chaîne disponible pour ce match pour le moment</string>
+
+    <string name="no_data_found">Aucune donnée trouvée</string>
+    <string name="something_went_wrong">Quelque chose s\'est mal passé</string>
+    <string name="no_internet_connection">Pas de connexion Internet</string>
+    <string name="retry">Réessayer</string>
+    <string name="live">En direct</string>
+    <string name="today">Aujourd\'hui</string>
+    <string name="yesterday">Hier</string>
+    <string name="tomorrow">Demain</string>
+
+    <string name="light">Clair</string>
+    <string name="dark">Sombre</string>
+    <string name="system_default">Par défaut du système</string>
+    <string name="appearance">Apparence</string>
+</resources>
