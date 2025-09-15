@@ -1,9 +1,5 @@
 package com.footstique.live;
 
-import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.MenuItem;
@@ -12,21 +8,16 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
-import com.footstique.live.adapters.MatchChannelAdapter;
 import com.footstique.live.models.Match;
 import com.footstique.live.models.MatchChannel;
 import com.footstique.live.models.Team;
+import com.footstique.live.utils.TimeUtils;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-import com.footstique.live.utils.TimeUtils;
-import java.util.stream.Collectors;
-
 
 public class MatchDetailActivity extends AppCompatActivity {
 
@@ -34,21 +25,27 @@ public class MatchDetailActivity extends AppCompatActivity {
 
     // Views for the top card (Teams and Score)
     private ImageView ivCompetitionLogo, ivHomeTeamLogo, ivAwayTeamLogo;
-    private TextView tvCompetitionName, tvMatchStatus;
+    private TextView tvCompetitionName;
     private TextView tvHomeTeamName, tvAwayTeamName, tvHomeTeamGoals, tvAwayTeamGoals, tvKickoffTime;
 
-    // Views for the details list (as per the new UI)
+    // Views for the details list
     private TextView tvCompetitionValue, tvStadiumValue, tvBroadcastingChannelValue, tvMatchTimeValue, tvMatchDateValue;
-
-    // The RecyclerView for streaming channels is now replaced by a simple TextView
-    // but we can keep it if we want to list channels at the bottom as well.
-    // For this example, we will populate the TextView instead.
-    // private RecyclerView recyclerViewChannels;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_match_detail);
+
+        // ---  الكود الجديد لإضافة شريط الأدوات وسهم الرجوع ---
+        androidx.appcompat.widget.Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+            getSupportActionBar().setTitle(""); // لإخفاء العنوان النصي
+        }
+        // --- نهاية الكود الجديد ---
 
         // Get match from intent
         match = (Match) getIntent().getSerializableExtra("match");
@@ -64,21 +61,30 @@ public class MatchDetailActivity extends AppCompatActivity {
         displayMatchData();
     }
 
+    // --- دالة جديدة للتعامل مع النقر على سهم الرجوع ---
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            onBackPressed(); // تنفيذ الرجوع للخلف
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+    // --- نهاية الدالة الجديدة ---
+
     private void initializeViews() {
         // Top card views
         ivCompetitionLogo = findViewById(R.id.ivCompetitionLogo);
         tvCompetitionName = findViewById(R.id.tvCompetitionName);
-        tvMatchStatus = findViewById(R.id.tvMatchStatus);
         ivHomeTeamLogo = findViewById(R.id.ivHomeTeamLogo);
         ivAwayTeamLogo = findViewById(R.id.ivAwayTeamLogo);
         tvHomeTeamName = findViewById(R.id.tvHomeTeamName);
         tvAwayTeamName = findViewById(R.id.tvAwayTeamName);
         tvHomeTeamGoals = findViewById(R.id.tvHomeTeamGoals);
         tvAwayTeamGoals = findViewById(R.id.tvAwayTeamGoals);
-        tvKickoffTime = findViewById(R.id.tvKickoffTime); // TextView for score or time between logos
+        tvKickoffTime = findViewById(R.id.tvKickoffTime);
 
-        // New detail views from the image
-        // Make sure you have these IDs in your activity_match_detail.xml
+        // New detail views
         tvCompetitionValue = findViewById(R.id.tvCompetitionValue);
         tvStadiumValue = findViewById(R.id.tvStadiumValue);
         tvBroadcastingChannelValue = findViewById(R.id.tvBroadcastingChannelValue);
@@ -93,7 +99,6 @@ public class MatchDetailActivity extends AppCompatActivity {
                 .load(match.getCompetition().getLogo())
                 .into(ivCompetitionLogo);
 
-        tvMatchStatus.setText(match.getStatusText());
 
         // Home team
         Team homeTeam = match.getHomeTeam();
@@ -107,7 +112,7 @@ public class MatchDetailActivity extends AppCompatActivity {
         com.bumptech.glide.Glide.with(this).load(awayTeam.getLogo()).into(ivAwayTeamLogo);
         tvAwayTeamGoals.setText(awayTeam.getGoals() != null ? String.valueOf(awayTeam.getGoals()) : "-");
 
-        // --- 2. Details List (New Implementation) ---
+        // --- 2. Details List ---
 
         // Competition Name
         tvCompetitionValue.setText(match.getCompetition().getName());
@@ -124,23 +129,19 @@ public class MatchDetailActivity extends AppCompatActivity {
                 channelNames.add(channel.getName());
             }
         }
-        String channelsString = TextUtils.join("، ", channelNames); // Join with an Arabic comma
+        String channelsString = TextUtils.join("، ", channelNames);
         tvBroadcastingChannelValue.setText(channelsString.isEmpty() ? "غير متوفر" : channelsString);
 
         // Match Time
-        // Format: 08:00 م (GMT+1)
         SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm a (z)", new Locale("ar"));
         timeFormat.setTimeZone(TimeUtils.getPreferredTimeZone(this));
         tvMatchTimeValue.setText(timeFormat.format(match.getKickoffTime()));
 
-        // This also sets the time in the middle of the top card
         SimpleDateFormat timeOnlyFormat = new SimpleDateFormat("hh:mm a", new Locale("ar"));
         timeOnlyFormat.setTimeZone(TimeUtils.getPreferredTimeZone(this));
         tvKickoffTime.setText(timeOnlyFormat.format(match.getKickoffTime()));
 
-
         // Match Date
-        // Format: الاثنين (15-09-2025)
         SimpleDateFormat dateFormat = new SimpleDateFormat("EEEE (dd-MM-yyyy)", new Locale("ar"));
         dateFormat.setTimeZone(TimeUtils.getPreferredTimeZone(this));
         tvMatchDateValue.setText(dateFormat.format(match.getKickoffTime()));
