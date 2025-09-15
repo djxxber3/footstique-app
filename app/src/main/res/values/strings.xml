@@ -22,7 +22,10 @@
         <string name="matches">المباريات</string>
         <string name="channels">القنوات</string>
         <string name="more">المزيد</string>
-
+        <string name="language">اللغة</string>
+        <string name="arabic">العربية</string>
+        <string name="french">الفرنسية</string>
+        <string name="english">الانجليزية</string>
         <string name="match_channels">قنوات المباراة</string>
         <string name="no_channels_found">لا توجد قنوات متاحة لهذه المباراة حالياً</string>
 

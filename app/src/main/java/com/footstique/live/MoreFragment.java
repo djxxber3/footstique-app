@@ -12,6 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.Switch;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
 
@@ -19,7 +20,8 @@ public class MoreFragment extends Fragment {
 
     private Switch switchTheme;
     private SharedPreferences sharedPreferences;
-
+private LinearLayout languageLayout;
+private TextView selectedLanguageTextView;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -78,7 +80,56 @@ public class MoreFragment extends Fragment {
             Intent intent = new Intent(getActivity(), PolicyActivity.class);
             startActivity(intent);
         });
+languageLayout = view.findViewById(R.id.language_layout);
+selectedLanguageTextView = view.findViewById(R.id.selected_language_textview);
 
+// Load the saved language and set the text
+SharedPreferences languagePrefs = requireActivity().getSharedPreferences("language_prefs", Context.MODE_PRIVATE);
+String currentLang = languagePrefs.getString("language", "ar"); // Default to Arabic
+setLanguageText(currentLang);
+
+
+languageLayout.setOnClickListener(v -> {
+    showLanguageDialog();
+});
         return view;
     }
+
+    private void setLanguageText(String langCode) {
+        switch (langCode) {
+            case "en":
+                selectedLanguageTextView.setText(R.string.english);
+                break;
+            case "fr":
+                selectedLanguageTextView.setText(R.string.french);
+                break;
+            default:
+                selectedLanguageTextView.setText(R.string.arabic);
+                break;
+        }
+    }
+
+    private void showLanguageDialog() {
+        final String[] languages = {"العربية", "Français", "English"};
+        final String[] langCodes = {"ar", "fr", "en"};
+
+        new AlertDialog.Builder(requireContext())
+                .setTitle("اختر لغة")
+                .setItems(languages, (dialog, which) -> {
+                    setLocale(langCodes[which]);
+                })
+                .show();
+    }
+
+    private void setLocale(String langCode) {
+        // Save the selected language
+        SharedPreferences languagePrefs = requireActivity().getSharedPreferences("language_prefs", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = languagePrefs.edit();
+        editor.putString("language", langCode);
+        editor.apply();
+
+        // Recreate the activity to apply the language change
+        requireActivity().recreate();
+    }
 }
+
