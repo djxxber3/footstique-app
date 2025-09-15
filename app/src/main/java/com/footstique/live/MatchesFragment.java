@@ -47,7 +47,7 @@ public class MatchesFragment extends Fragment implements MatchAdapter.OnMatchCli
     private TextView tvCurrentDate;
     private Calendar currentDate = Calendar.getInstance();
     private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
-    private SimpleDateFormat displayDateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+    private SimpleDateFormat displayDateFormat = new SimpleDateFormat("yyyy-MM-dd",Locale.US);
     
     @Nullable
     @Override

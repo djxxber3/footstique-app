@@ -28,7 +28,7 @@ public class MatchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     private final Context context;
     private final List<Object> items; // قائمة تحتوي على دوريات ومباريات
     private final OnMatchClickListener listener;
-    private final SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm a", Locale.getDefault());
+    private final SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm a", Locale.US);
 
     public interface OnMatchClickListener {
         void onMatchClick(Match match);

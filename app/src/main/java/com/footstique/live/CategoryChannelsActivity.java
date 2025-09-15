@@ -100,24 +100,5 @@ public class CategoryChannelsActivity extends AppCompatActivity {
             for (String v : vals) if (v != null && !v.trim().isEmpty()) return v.trim();
             return "";
         }
-    // --- Language Configuration ---
-    @Override
-    protected void attachBaseContext(Context newBase) {
-        super.attachBaseContext(updateBaseContextLocale(newBase));
-    }
 
-    private Context updateBaseContextLocale(Context context) {
-        SharedPreferences languagePrefs = context.getSharedPreferences("language_prefs", Context.MODE_PRIVATE);
-        // أحضر اللغة المخزنة، وفي حال عدم وجودها، استخدم "ar" (العربية) كلغة افتراضية
-        String language = languagePrefs.getString("language", "ar");
-
-        java.util.Locale locale = new java.util.Locale(language);
-        java.util.Locale.setDefault(locale);
-
-        android.content.res.Configuration config = new android.content.res.Configuration(context.getResources().getConfiguration());
-        config.setLocale(locale);
-        config.setLayoutDirection(locale);
-
-        return context.createConfigurationContext(config);
-    }
 }

@@ -126,12 +126,8 @@ public class MoreFragment extends Fragment {
 
         // 2. استخدم Lingver لتطبيق اللغة (إذا كنت تستخدم المكتبة)
         Lingver.getInstance().setLocale(requireContext(), langCode);
+        requireActivity().recreate();
 
-        // 3. أعد تشغيل التطبيق بالكامل بطريقة آمنة
-        // هذا الكود سيغلق كل الشاشات ويفتح الشاشة الرئيسية من جديد
-        Intent intent = new Intent(requireActivity(), SplashActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(intent);
     }
 
         // --- Theme Methods ---
