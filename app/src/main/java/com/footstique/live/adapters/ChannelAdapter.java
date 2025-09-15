@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.footstique.live.R;
 import com.footstique.live.models.Channel;
-import com.footstique.live.utils.ImageLoader;
 
 import java.util.List;
 
@@ -45,11 +44,12 @@ public class ChannelAdapter extends RecyclerView.Adapter<ChannelAdapter.ChannelV
 
         holder.tvChannelName.setText(channel.getName());
 
-        ImageLoader.loadImage(
-                channel.getLogo(),
-                holder.ivChannelLogo,
-                R.color.fs_dark_grey_secondary
-        );
+        com.bumptech.glide.Glide.with(context)
+            .load(channel.getLogo())
+            .placeholder(R.color.fs_dark_grey_secondary)
+            .error(R.color.fs_dark_grey_secondary)
+            .diskCacheStrategy(com.bumptech.glide.load.engine.DiskCacheStrategy.ALL)
+            .into(holder.ivChannelLogo);
 
         holder.itemView.setOnClickListener(v -> {
             if (listener != null) {

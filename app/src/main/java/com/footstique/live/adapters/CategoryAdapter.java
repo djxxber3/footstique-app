@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.footstique.live.R;
 import com.footstique.live.models.ChannelCategory;
-import com.footstique.live.utils.ImageLoader;
 
 import java.util.List;
 
@@ -48,11 +47,12 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
         holder.tvChannelsCount.setText(category.getChannelsCount() + " channels");
         
         // Load category logo using our simple ImageLoader
-        ImageLoader.loadImage(
-                category.getLogo(),
-                holder.ivCategoryLogo,
-                R.color.fs_dark_grey_secondary
-        );
+        com.bumptech.glide.Glide.with(context)
+            .load(category.getLogo())
+            .placeholder(R.color.fs_dark_grey_secondary)
+            .error(R.color.fs_dark_grey_secondary)
+            .diskCacheStrategy(com.bumptech.glide.load.engine.DiskCacheStrategy.ALL)
+            .into(holder.ivCategoryLogo);
         
         // Set click listener
         holder.itemView.setOnClickListener(v -> {

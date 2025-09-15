@@ -16,11 +16,9 @@ import com.footstique.live.adapters.MatchChannelAdapter;
 import com.footstique.live.models.Match;
 import com.footstique.live.models.MatchChannel;
 import com.footstique.live.models.Team;
-import com.footstique.live.utils.ImageLoader;
 
 import java.text.SimpleDateFormat;
 import java.util.Locale;
-import java.util.TimeZone;
 import com.footstique.live.utils.TimeUtils;
 
 public class MatchDetailActivity extends AppCompatActivity {
@@ -66,11 +64,12 @@ public class MatchDetailActivity extends AppCompatActivity {
     private void displayMatchData() {
         // Competition info
         tvCompetitionName.setText(match.getCompetition().getName());
-        ImageLoader.loadImage(
-                match.getCompetition().getLogo(),
-                ivCompetitionLogo,
-                R.color.fs_dark_grey_secondary
-        );
+        com.bumptech.glide.Glide.with(this)
+            .load(match.getCompetition().getLogo())
+            .placeholder(R.color.fs_dark_grey_secondary)
+            .error(R.color.fs_dark_grey_secondary)
+            .diskCacheStrategy(com.bumptech.glide.load.engine.DiskCacheStrategy.ALL)
+            .into(ivCompetitionLogo);
 
         // Match date and status
     SimpleDateFormat dateFormat = new SimpleDateFormat("EEE, dd MMM yyyy h:mm a", Locale.getDefault());
@@ -81,11 +80,12 @@ public class MatchDetailActivity extends AppCompatActivity {
         // Home team
         Team homeTeam = match.getHomeTeam();
         tvHomeTeamName.setText(homeTeam.getName());
-        ImageLoader.loadImage(
-                homeTeam.getLogo(),
-                ivHomeTeamLogo,
-                R.color.fs_dark_grey_secondary
-        );
+        com.bumptech.glide.Glide.with(this)
+            .load(homeTeam.getLogo())
+            .placeholder(R.color.fs_dark_grey_secondary)
+            .error(R.color.fs_dark_grey_secondary)
+            .diskCacheStrategy(com.bumptech.glide.load.engine.DiskCacheStrategy.ALL)
+            .into(ivHomeTeamLogo);
         if (homeTeam.getGoals() != null) {
             tvHomeTeamGoals.setText(String.valueOf(homeTeam.getGoals()));
         } else {
@@ -95,11 +95,12 @@ public class MatchDetailActivity extends AppCompatActivity {
         // Away team
         Team awayTeam = match.getAwayTeam();
         tvAwayTeamName.setText(awayTeam.getName());
-        ImageLoader.loadImage(
-                awayTeam.getLogo(),
-                ivAwayTeamLogo,
-                R.color.fs_dark_grey_secondary
-        );
+        com.bumptech.glide.Glide.with(this)
+            .load(awayTeam.getLogo())
+            .placeholder(R.color.fs_dark_grey_secondary)
+            .error(R.color.fs_dark_grey_secondary)
+            .diskCacheStrategy(com.bumptech.glide.load.engine.DiskCacheStrategy.ALL)
+            .into(ivAwayTeamLogo);
         if (awayTeam.getGoals() != null) {
             tvAwayTeamGoals.setText(String.valueOf(awayTeam.getGoals()));
         } else {

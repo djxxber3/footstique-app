@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="?android:attr/windowBackground"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:padding="24dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!-- Appearance Section -->
+        <TextView
+            android:text="المظهر"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:fontFamily="sans-serif"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="8dp" />
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:paddingBottom="16dp">
+
+            <ImageView
+                android:src="@drawable/ic_sun"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:contentDescription="Light Mode" />
+
+            <Switch
+                android:id="@+id/switch_theme"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp" />
+
+            <ImageView
+                android:src="@drawable/ic_moon"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:contentDescription="Dark Mode" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#E0E0E0" />
+
+        <!-- Social & Links Section -->
+        <TextView
+            android:text="التواصل الاجتماعي"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:fontFamily="sans-serif"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="16dp"
+            android:paddingBottom="8dp" />
+
+        <!-- Telegram -->
+        <LinearLayout
+            android:id="@+id/telegram_layout"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:padding="8dp">
+            <ImageView
+                android:src="@drawable/ic_telegram"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:contentDescription="Telegram" />
+            <TextView
+                android:text="تابعنا على تيليجرام"
+                android:textSize="16sp"
+                android:layout_marginStart="16dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#E0E0E0" />
+
+        <!-- Website -->
+        <LinearLayout
+            android:id="@+id/website_layout"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:padding="8dp">
+            <ImageView
+                android:src="@drawable/ic_website"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:contentDescription="Website" />
+            <TextView
+                android:text="زوروا موقعنا"
+                android:textSize="16sp"
+                android:layout_marginStart="16dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#E0E0E0" />
+
+        <!-- Facebook -->
+        <LinearLayout
+            android:id="@+id/facebook_layout"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:padding="8dp">
+            <ImageView
+                android:src="@drawable/ic_facebook"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:contentDescription="Facebook" />
+            <TextView
+                android:text="صفحتنا على فيسبوك"
+                android:textSize="16sp"
+                android:layout_marginStart="16dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#E0E0E0" />
+
+        <!-- About & Policy Section -->
+        <TextView
+            android:text="حول التطبيق"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:fontFamily="sans-serif"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="16dp"
+            android:paddingBottom="8dp" />
+
+        <!-- About -->
+        <LinearLayout
+            android:id="@+id/about_layout"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:padding="8dp">
+            <ImageView
+                android:src="@drawable/ic_info"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:contentDescription="About" />
+            <TextView
+                android:text="حول التطبيق"
+                android:textSize="16sp"
+                android:layout_marginStart="16dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#E0E0E0" />
+
+        <!-- Policy -->
+        <LinearLayout
+            android:id="@+id/policy_layout"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:padding="8dp">
+            <ImageView
+                android:src="@drawable/ic_policy"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:contentDescription="Policy" />
+            <TextView
+                android:text="سياسة الخصوصية"
+                android:textSize="16sp"
+                android:layout_marginStart="16dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+    </LinearLayout>
+</ScrollView>

@@ -5,9 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
-    app:cardBackgroundColor="@color/background_light_grey"
+    app:cardBackgroundColor="@color/white"
     android:stateListAnimator="@null"
-    style="@style/Widget.Footstique.CardView">
+    style="@style/Widget.Footstique.CardView"
+    app:cardElevation="0dp">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

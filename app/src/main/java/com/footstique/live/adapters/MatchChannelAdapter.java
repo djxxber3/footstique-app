@@ -15,7 +15,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.footstique.live.R;
 import com.footstique.live.models.MatchChannel;
-import com.footstique.live.utils.ImageLoader;
 
 import java.util.List;
 import org.json.JSONArray;
@@ -46,7 +45,12 @@ public class MatchChannelAdapter extends RecyclerView.Adapter<MatchChannelAdapte
     public void onBindViewHolder(@NonNull ChannelViewHolder holder, int position) {
         MatchChannel channel = channels.get(position);
         holder.tvChannelName.setText(channel.getName());
-        ImageLoader.loadImage(channel.getLogo(), holder.ivChannelLogo, R.color.fs_dark_grey_secondary);
+        com.bumptech.glide.Glide.with(context)
+            .load(channel.getLogo())
+            .placeholder(R.color.fs_dark_grey_secondary)
+            .error(R.color.fs_dark_grey_secondary)
+            .diskCacheStrategy(com.bumptech.glide.load.engine.DiskCacheStrategy.ALL)
+            .into(holder.ivChannelLogo);
         // Open player with this channel's streams on item click
         holder.itemView.setOnClickListener(v -> {
             JSONArray arr = new JSONArray();

@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.footstique.live.R;
 import com.footstique.live.models.Competition;
 import com.footstique.live.models.Match;
-import com.footstique.live.utils.ImageLoader;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Locale;
@@ -70,15 +69,30 @@ public class MatchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             HeaderViewHolder headerHolder = (HeaderViewHolder) holder;
             Competition competition = (Competition) items.get(position);
             headerHolder.leagueName.setText(competition.getName());
-            ImageLoader.loadImage(competition.getLogo(), headerHolder.leagueLogo, R.color.fs_dark_grey_secondary);
+            com.bumptech.glide.Glide.with(context)
+                .load(competition.getLogo())
+                .placeholder(R.color.fs_dark_grey_secondary)
+                .error(R.color.fs_dark_grey_secondary)
+                .diskCacheStrategy(com.bumptech.glide.load.engine.DiskCacheStrategy.ALL)
+                .into(headerHolder.leagueLogo);
         } else {
             MatchViewHolder matchHolder = (MatchViewHolder) holder;
             Match match = (Match) items.get(position);
 
             matchHolder.homeTeamName.setText(match.getHomeTeam().getName());
             matchHolder.awayTeamName.setText(match.getAwayTeam().getName());
-            ImageLoader.loadImage(match.getHomeTeam().getLogo(), matchHolder.homeTeamLogo, R.color.fs_dark_grey_secondary);
-            ImageLoader.loadImage(match.getAwayTeam().getLogo(), matchHolder.awayTeamLogo, R.color.fs_dark_grey_secondary);
+            com.bumptech.glide.Glide.with(context)
+                .load(match.getHomeTeam().getLogo())
+                .placeholder(R.color.fs_dark_grey_secondary)
+                .error(R.color.fs_dark_grey_secondary)
+                .diskCacheStrategy(com.bumptech.glide.load.engine.DiskCacheStrategy.ALL)
+                .into(matchHolder.homeTeamLogo);
+            com.bumptech.glide.Glide.with(context)
+                .load(match.getAwayTeam().getLogo())
+                .placeholder(R.color.fs_dark_grey_secondary)
+                .error(R.color.fs_dark_grey_secondary)
+                .diskCacheStrategy(com.bumptech.glide.load.engine.DiskCacheStrategy.ALL)
+                .into(matchHolder.awayTeamLogo);
 
             if (match.getStatus().equals("LIVE") || match.getStatus().equals("FT")) {
                 String score = match.getHomeTeam().getGoals() + " - " + match.getAwayTeam().getGoals();
