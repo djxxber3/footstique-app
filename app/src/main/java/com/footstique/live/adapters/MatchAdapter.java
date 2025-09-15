@@ -45,11 +45,19 @@ public class MatchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         this.items = items;
         this.listener = listener;
         this.preferredTimeZone = TimeUtils.getPreferredTimeZone(context);
-// Use Locale.US to force Latin digits, then set custom symbols
-        this.timeFormat = new SimpleDateFormat("hh:mm a", Locale.US);
-        DateFormatSymbols arSymbols = new DateFormatSymbols();
-        arSymbols.setAmPmStrings(new String[]{"ص", "م"});
-        this.timeFormat.setDateFormatSymbols(arSymbols);
+
+        // Conditional Time Formatting based on current language
+        String currentLanguage = com.yariksoffice.lingver.Lingver.getInstance().getLanguage();
+        if (currentLanguage.equals("ar")) {
+            // Use Locale.US to force Latin digits, then set custom symbols for Arabic
+            this.timeFormat = new SimpleDateFormat("hh:mm a", Locale.US);
+            DateFormatSymbols arSymbols = new DateFormatSymbols();
+            arSymbols.setAmPmStrings(new String[]{"ص", "م"});
+            this.timeFormat.setDateFormatSymbols(arSymbols);
+        } else {
+            // Default to US locale for other languages (e.g., English)
+            this.timeFormat = new SimpleDateFormat("hh:mm a", Locale.US);
+        }
         this.timeFormat.setTimeZone(this.preferredTimeZone);
     }
 

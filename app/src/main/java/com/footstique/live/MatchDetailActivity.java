@@ -19,6 +19,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.TimeZone;
 
 public class MatchDetailActivity extends AppCompatActivity {
 
@@ -98,7 +99,6 @@ public class MatchDetailActivity extends AppCompatActivity {
                 .load(match.getCompetition().getLogo())
                 .into(ivCompetitionLogo);
 
-
         // Home team
         Team homeTeam = match.getHomeTeam();
         tvHomeTeamName.setText(homeTeam.getName());
@@ -110,8 +110,6 @@ public class MatchDetailActivity extends AppCompatActivity {
         com.bumptech.glide.Glide.with(this).load(awayTeam.getLogo()).into(ivAwayTeamLogo);
 
         // --- 2. Details List ---
-
-        // Competition Name
         tvCompetitionValue.setText(match.getCompetition().getName());
 
         // Stadium
@@ -121,33 +119,61 @@ public class MatchDetailActivity extends AppCompatActivity {
 
         // Broadcasting Channels
         List<String> channelNames = new ArrayList<>();
-        for(MatchChannel channel : match.getStreamingChannels()){
-            if(channel.getName() != null && !channel.getName().isEmpty()){
+        for (MatchChannel channel : match.getStreamingChannels()) {
+            if (channel.getName() != null && !channel.getName().isEmpty()) {
                 channelNames.add(channel.getName());
             }
         }
         String channelsString = TextUtils.join("، ", channelNames);
         tvBroadcastingChannelValue.setText(channelsString.isEmpty() ? "غير متوفر" : channelsString);
 
-        // 1. Initialize DateFormatSymbols with Arabic AM/PM strings
-        DateFormatSymbols arSymbols = new DateFormatSymbols();
-        arSymbols.setAmPmStrings(new String[]{"ص", "م"});
+        // --- Conditional Date/Time Formatting ---
+        String currentLanguage = com.yariksoffice.lingver.Lingver.getInstance().getLanguage();
+        TimeZone preferredTimeZone = TimeUtils.getPreferredTimeZone(this);
 
-// 2. Setup Match Time format
-        SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm a (z)", Locale.US); // Use Locale.US for Latin numbers
-        timeFormat.setDateFormatSymbols(arSymbols); // Apply custom AM/PM symbols
-        timeFormat.setTimeZone(TimeUtils.getPreferredTimeZone(this));
+        SimpleDateFormat timeFormat, timeOnlyFormat;
+
+        if (currentLanguage.equals("ar")) {
+            // --- ARABIC FORMATTING ---
+            DateFormatSymbols arSymbols = new DateFormatSymbols();
+            arSymbols.setAmPmStrings(new String[]{"ص", "م"});
+
+            // Time formats (with Arabic AM/PM)
+            timeFormat = new SimpleDateFormat("hh:mm a (z)", Locale.US);
+            timeFormat.setDateFormatSymbols(arSymbols);
+            timeOnlyFormat = new SimpleDateFormat("hh:mm a", Locale.US);
+            timeOnlyFormat.setDateFormatSymbols(arSymbols);
+
+            // --- WORKAROUND FOR DATE ---
+            // 1. Format Day Name in Arabic
+            SimpleDateFormat dayFormat = new SimpleDateFormat("EEEE", new Locale("ar"));
+            dayFormat.setTimeZone(preferredTimeZone);
+            String dayName = dayFormat.format(match.getKickoffTime());
+
+            // 2. Format Date (numbers) in English
+            SimpleDateFormat dateNumberFormat = new SimpleDateFormat(" (dd-MM-yyyy)", Locale.US);
+            dateNumberFormat.setTimeZone(preferredTimeZone);
+            String dateWithLatinNumbers = dateNumberFormat.format(match.getKickoffTime());
+
+            // 3. Combine and set the date string
+            tvMatchDateValue.setText(dayName + dateWithLatinNumbers);
+
+        } else {
+            // --- DEFAULT (ENGLISH) FORMATTING ---
+            timeFormat = new SimpleDateFormat("hh:mm a (z)", Locale.US);
+            timeOnlyFormat = new SimpleDateFormat("hh:mm a", Locale.US);
+
+            SimpleDateFormat dateFormat = new SimpleDateFormat("EEEE (dd-MM-yyyy)", Locale.US);
+            dateFormat.setTimeZone(preferredTimeZone);
+            tvMatchDateValue.setText(dateFormat.format(match.getKickoffTime()));
+        }
+
+        // Apply TimeZone to time formats
+        timeFormat.setTimeZone(preferredTimeZone);
+        timeOnlyFormat.setTimeZone(preferredTimeZone);
+
+        // Set Text for time fields
         tvMatchTimeValue.setText(timeFormat.format(match.getKickoffTime()));
-
-// 3. Setup Kickoff Time format
-        SimpleDateFormat timeOnlyFormat = new SimpleDateFormat("hh:mm a", Locale.US); // Use Locale.US for Latin numbers
-        timeOnlyFormat.setDateFormatSymbols(arSymbols); // Apply custom AM/PM symbols
-        timeOnlyFormat.setTimeZone(TimeUtils.getPreferredTimeZone(this));
         tvKickoffTime.setText(timeOnlyFormat.format(match.getKickoffTime()));
-
-// 4. Setup Match Date format (this correctly uses Arabic day names with Latin numbers)
-        SimpleDateFormat dateFormat = new SimpleDateFormat("EEEE (dd-MM-yyyy)", new Locale("ar-u-nu-latn"));
-        dateFormat.setTimeZone(TimeUtils.getPreferredTimeZone(this));
-        tvMatchDateValue.setText(dateFormat.format(match.getKickoffTime()));
     }
 }

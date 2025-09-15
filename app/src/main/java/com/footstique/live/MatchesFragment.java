@@ -47,7 +47,7 @@ public class MatchesFragment extends Fragment implements MatchAdapter.OnMatchCli
     private TextView tvCurrentDate;
     private Calendar currentDate = Calendar.getInstance();
     private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
-    private SimpleDateFormat displayDateFormat = new SimpleDateFormat("yyyy-MM-dd",Locale.US);
+    private SimpleDateFormat displayDateFormat;
     
     @Nullable
     @Override
@@ -80,11 +80,46 @@ public class MatchesFragment extends Fragment implements MatchAdapter.OnMatchCli
         
         return view;
     }
-    
+
     private void updateDateDisplay() {
+        // --- Determine Locale ---
+        String currentLanguage = com.yariksoffice.lingver.Lingver.getInstance().getLanguage();
+        Locale displayLocale;
+        String displayPattern;
+
+        if (currentLanguage.equals("ar")) {
+            displayLocale = new Locale("ar");
+            displayPattern = "EEEE, dd MMMM"; // الجمعة، 05 سبتمبر
+        } else {
+            displayLocale = Locale.US;
+            displayPattern = "EEEE, MMMM dd"; // Friday, September 05
+        }
+
+        displayDateFormat = new SimpleDateFormat(displayPattern, displayLocale);
+
+        // --- Apply Timezone and Set Text ---
         TimeZone tz = TimeUtils.getPreferredTimeZone(requireContext());
         displayDateFormat.setTimeZone(tz);
-        tvCurrentDate.setText(displayDateFormat.format(currentDate.getTime()));
+
+        // --- Logic for Today, Yesterday, Tomorrow ---
+        Calendar today = Calendar.getInstance(tz);
+        Calendar yesterday = (Calendar) today.clone();
+        yesterday.add(Calendar.DAY_OF_YEAR, -1);
+        Calendar tomorrow = (Calendar) today.clone();
+        tomorrow.add(Calendar.DAY_OF_YEAR, 1);
+
+        String dateText;
+        if (isSameDay(currentDate, today)) {
+            dateText = getString(R.string.today);
+        } else if (isSameDay(currentDate, yesterday)) {
+            dateText = getString(R.string.yesterday);
+        } else if (isSameDay(currentDate, tomorrow)) {
+            dateText = getString(R.string.tomorrow);
+        } else {
+            dateText = displayDateFormat.format(currentDate.getTime());
+        }
+
+        tvCurrentDate.setText(dateText);
         updateNavButtons();
     }
 
