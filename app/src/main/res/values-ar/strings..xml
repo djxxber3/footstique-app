@@ -19,24 +19,25 @@
     <string name="home">Home</string>
     <string name="favorites">Favorites</string>
     <string name="profile">Profile</string>
-    <string name="matches">Matches</string>
-    <string name="channels">Channels</string>
-    <string name="more">More</string>
-    <string name="language">Language</string>
-    <string name="arabic">Arabic</string>
-    <string name="french">French</string>
-    <string name="english">English</string>
-    <string name="match_channels">Match Channels</string>
-    <string name="no_channels_found">No channels available for this match at the moment</string>
+    <string name="matches">المباريات</string>
+    <string name="channels">القنوات</string>
+    <string name="more">المزيد</string>
+    <string name="language">اللغة</string>
+    <string name="arabic">العربية</string>
+    <string name="french">الفرنسية</string>
+    <string name="english">الانجليزية</string>
+    <string name="match_channels">قنوات المباراة</string>
+    <string name="no_channels_found">لا توجد قنوات متاحة لهذه المباراة حالياً</string>
 
-    <string name="no_data_found">No data found</string>
-    <string name="something_went_wrong">Something went wrong</string>
-    <string name="no_internet_connection">No internet connection</string>
-    <string name="retry">Retry</string>
-    <string name="live">Live</string>
-    <string name="today">Today</string>
-    <string name="yesterday">Yesterday</string>
-    <string name="tomorrow">Tomorrow</string>
+    <string name="no_data_found">لا توجد بيانات</string>
+    <string name="something_went_wrong">حدث خطأ ما</string>
+    <string name="no_internet_connection">لا يوجد اتصال بالإنترنت</string>
+    <string name="retry">إعادة المحاولة</string>
+    <string name="live">مباشر</string>
+    <string name="today">اليوم</string>
+    <string name="yesterday">الأمس</string>
+    <string name="tomorrow">غداً</string>
+
 
     <string name="light">Light</string>
     <string name="dark">Dark</string>

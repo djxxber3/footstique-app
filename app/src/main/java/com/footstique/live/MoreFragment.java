@@ -75,6 +75,7 @@ public class MoreFragment extends Fragment {
     }
 
     private void setupLanguage() {
+
         SharedPreferences languagePrefs = requireActivity().getSharedPreferences("language_prefs", Context.MODE_PRIVATE);
         // Set default language to Arabic ("ar") if not found
         String currentLang = languagePrefs.getString("language", "ar");

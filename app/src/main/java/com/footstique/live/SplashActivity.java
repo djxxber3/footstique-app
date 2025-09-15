@@ -50,7 +50,14 @@ public class SplashActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
+        // Set default language to Arabic
+        java.util.Locale locale = new java.util.Locale("ar");
+        java.util.Locale.setDefault(locale);
+        android.content.res.Configuration config = new android.content.res.Configuration();
+        config.locale = locale;
+        getResources().updateConfiguration(config, getResources().getDisplayMetrics());
         // Apply the saved theme
         SharedPreferences sharedPreferences = getSharedPreferences("theme_prefs", MODE_PRIVATE);
         boolean isDarkMode = sharedPreferences.getBoolean("is_dark_mode", false);
