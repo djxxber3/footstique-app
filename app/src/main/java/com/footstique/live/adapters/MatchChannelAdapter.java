@@ -13,6 +13,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.footstique.live.R;
 import com.footstique.live.models.MatchChannel;
 
@@ -49,7 +50,7 @@ public class MatchChannelAdapter extends RecyclerView.Adapter<MatchChannelAdapte
             .load(channel.getLogo())
             .placeholder(R.color.fs_dark_grey_secondary)
             .error(R.color.fs_dark_grey_secondary)
-            .diskCacheStrategy(com.bumptech.glide.load.engine.DiskCacheStrategy.ALL)
+            .diskCacheStrategy(DiskCacheStrategy.NONE)
             .into(holder.ivChannelLogo);
         // Open player with this channel's streams on item click
         holder.itemView.setOnClickListener(v -> {
