@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "101018937329",
+    "project_id": "footstique-app",
+    "storage_bucket": "footstique-app.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:101018937329:android:177d07cc57d33355254650",
+        "android_client_info": {
+          "package_name": "com.footstique.live"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCOoD6PrVsjDyDlTNP4APLbQ9MWNLzl7TY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
