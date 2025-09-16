@@ -1,18 +1,24 @@
 package com.footstique.live;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.footstique.live.models.Channel; // استيراد Channel
 import com.footstique.live.models.Match;
 import com.footstique.live.models.MatchChannel;
 import com.footstique.live.models.Team;
 import com.footstique.live.utils.TimeUtils;
+import com.footstique.live.utils.VideoPlayer; // استيراد VideoPlayer
 
 import java.text.DateFormatSymbols;
 import java.text.SimpleDateFormat;
@@ -24,6 +30,7 @@ import java.util.TimeZone;
 public class MatchDetailActivity extends AppCompatActivity {
 
     private Match match;
+    private Button btnWatchMatch;
 
     // Views for the top card (Teams and Score)
     private ImageView ivCompetitionLogo, ivHomeTeamLogo, ivAwayTeamLogo;
@@ -61,6 +68,9 @@ public class MatchDetailActivity extends AppCompatActivity {
 
         // Display match data using the new structure
         displayMatchData();
+
+        // --- **المنطق الجديد لزر مشاهدة المباراة** ---
+        btnWatchMatch.setOnClickListener(v -> handleWatchButtonClick());
     }
 
     // --- دالة جديدة للتعامل مع النقر على سهم الرجوع ---
@@ -77,6 +87,7 @@ public class MatchDetailActivity extends AppCompatActivity {
     private void initializeViews() {
         // Top card views
         ivCompetitionLogo = findViewById(R.id.ivCompetitionLogo);
+        btnWatchMatch = findViewById(R.id.btnWatchMatch); // أضف هذا السطر
         tvCompetitionName = findViewById(R.id.tvCompetitionName);
         ivHomeTeamLogo = findViewById(R.id.ivHomeTeamLogo);
         ivAwayTeamLogo = findViewById(R.id.ivAwayTeamLogo);
@@ -123,10 +134,18 @@ public class MatchDetailActivity extends AppCompatActivity {
 
         // Broadcasting Channels
         List<String> channelNames = new ArrayList<>();
-        for (MatchChannel channel : match.getStreamingChannels()) {
-            if (channel.getName() != null && !channel.getName().isEmpty()) {
-                channelNames.add(channel.getName());
+        if (match.getStreamingChannels() != null) {
+            for (MatchChannel channel : match.getStreamingChannels()) {
+                if (channel.getName() != null && !channel.getName().isEmpty()) {
+                    channelNames.add(channel.getName());
+                }
             }
+        }
+
+        if (channelNames.isEmpty()) {
+            btnWatchMatch.setVisibility(View.GONE); // إخفاء الزر
+        } else {
+            btnWatchMatch.setVisibility(View.VISIBLE); // إظهار الزر
         }
         String channelsString = TextUtils.join("، ", channelNames);
         tvBroadcastingChannelValue.setText(channelsString.isEmpty() ? "غير متوفر" : channelsString);
@@ -179,5 +198,55 @@ public class MatchDetailActivity extends AppCompatActivity {
         // Set Text for time fields
         tvMatchTimeValue.setText(timeFormat.format(match.getKickoffTime()));
         tvKickoffTime.setText(timeOnlyFormat.format(match.getKickoffTime()));
+    }
+
+    // --- **دالة جديدة للتعامل مع النقر على زر المشاهدة** ---
+    private void handleWatchButtonClick() {
+        List<MatchChannel> channels = match.getStreamingChannels();
+        if (channels == null || channels.isEmpty()) {
+            return; // لا تفعل شيئًا إذا لم تكن هناك قنوات
+        }
+
+        if (channels.size() == 1) {
+            // قناة واحدة فقط، قم بالتشغيل مباشرة
+            playVideo(channels.get(0));
+        } else {
+            // أكثر من قناة، أظهر نافذة للاختيار
+            showChannelChooser(channels);
+        }
+    }
+
+    // --- **دالة جديدة لتحويل MatchChannel إلى Channel وتشغيل الفيديو** ---
+    private void playVideo(MatchChannel matchChannel) {
+        // قم بإنشاء كائن Channel مباشرة باستخدام المُنشئ
+        // مرر قيمًا فارغة أو افتراضية للمعلمات غير المتوفرة
+        Channel channel = new Channel(
+                matchChannel.getName(),
+                "", // logo (فارغ)
+                "", // category (فارغ)
+                0,  // epgId (قيمة افتراضية)
+                null, // stream (قيمة افتراضية)
+                matchChannel.getStreams()
+        );
+
+        VideoPlayer.playChannel(this, channel);
+    }
+    // --- **دالة جديدة لعرض نافذة اختيار القناة** ---
+    private void showChannelChooser(List<MatchChannel> channels) {
+        // استخراج أسماء القنوات
+        String[] channelNames = new String[channels.size()];
+        for (int i = 0; i < channels.size(); i++) {
+            channelNames[i] = channels.get(i).getName();
+        }
+
+        // إنشاء وعرض AlertDialog
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(getString(R.string.choose_channel_title)); // "اختر قناة"
+        builder.setItems(channelNames, (dialog, which) -> {
+            // عند اختيار قناة، قم بتشغيل الفيديو
+            MatchChannel selectedChannel = channels.get(which);
+            playVideo(selectedChannel);
+        });
+        builder.show();
     }
 }

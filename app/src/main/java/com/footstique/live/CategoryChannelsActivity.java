@@ -1,29 +1,16 @@
 package com.footstique.live;
 
-import android.content.ComponentName;
-import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.ProgressBar;
-import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.footstique.live.adapters.ChannelAdapter;
 import com.footstique.live.models.Channel;
 import com.footstique.live.models.ChannelCategory;
-import com.footstique.live.models.Stream;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.Serializable;
-import java.util.ArrayList; // still used for category fallback
+import com.footstique.live.utils.VideoPlayer; // استيراد الفئة الجديدة
+import java.util.ArrayList;
 import java.util.List;
 
 public class CategoryChannelsActivity extends AppCompatActivity {
@@ -61,28 +48,9 @@ public class CategoryChannelsActivity extends AppCompatActivity {
 
         // Setup RecyclerView
         rvChannels.setLayoutManager(new LinearLayoutManager(this));
-        // **هنا تم إضافة منطق تشغيل الفيديو**
+        // **هنا تم تعديل منطق تشغيل الفيديو**
         channelAdapter = new ChannelAdapter(this, channels, channel -> {
-            Intent intent = new Intent();
-            intent.setComponent(new ComponentName("com.footstique.fsplayer","com.footstique.player.PlayerActivity"));
-                JSONArray arr = new JSONArray();
-            for (Stream stream : channel.getStreams()) {
-                    if (stream == null || stream.getUrl() == null || stream.getUrl().trim().isEmpty()) continue;
-                    try {
-                        JSONObject o = new JSONObject();
-                        o.put("url", stream.getUrl());
-                        String label = firstNonEmpty(stream.getLabel(), stream.getQuality(), "Stream");
-                        o.put("label", label);
-                        putIfNotEmpty(o, "userAgent", stream.getUserAgent());
-                        putIfNotEmpty(o, "referer", stream.getReferer());
-                        putIfNotEmpty(o, "cookie", stream.getCookie());
-                        putIfNotEmpty(o, "origin", stream.getOrigin());
-                        arr.put(o);
-                    } catch (JSONException ignored) {}
-            }
-                String json = arr.toString();
-            intent.putExtra("streams_json", json);
-             startActivity(intent);
+            VideoPlayer.playChannel(this, channel); // استدعاء الوظيفة الجديدة
         });
         rvChannels.setAdapter(channelAdapter);
 
@@ -90,15 +58,4 @@ public class CategoryChannelsActivity extends AppCompatActivity {
             // Optionally, show a message if there are no channels
         }
     }
-
-        private static void putIfNotEmpty(JSONObject o, String k, String v) throws JSONException {
-            if (v != null && !v.trim().isEmpty()) o.put(k, v.trim());
-        }
-
-        private static String firstNonEmpty(String... vals) {
-            if (vals == null) return "";
-            for (String v : vals) if (v != null && !v.trim().isEmpty()) return v.trim();
-            return "";
-        }
-
 }
