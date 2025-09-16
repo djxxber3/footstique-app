@@ -93,8 +93,12 @@ public class MatchDetailActivity extends AppCompatActivity {
     }
 
     private void displayMatchData() {
-        // --- 1. Top Card: Competition, Teams, Score/Time ---
-        tvCompetitionName.setText(match.getCompetition().getName());
+        if (tvCompetitionName != null) {
+            tvCompetitionName.setText(match.getCompetition().getName());
+        } else {
+            // Log an error to help with debugging
+            android.util.Log.e("MatchDetailActivity", "tvCompetitionName is null!");
+        }
         com.bumptech.glide.Glide.with(this)
                 .load(match.getCompetition().getLogo())
                 .into(ivCompetitionLogo);

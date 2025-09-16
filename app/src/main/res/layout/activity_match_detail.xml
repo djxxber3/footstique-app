@@ -133,6 +133,8 @@
                                 android:layout_height="60dp"
                                 tools:src="@android:color/holo_red_dark" />
 
+
+
                             <TextView
                                 android:id="@+id/tvAwayTeamName"
                                 android:layout_width="wrap_content"
@@ -147,10 +149,26 @@
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
+            <Button
+                android:id="@+id/btnWatchMatch"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="10dp"
+                android:paddingVertical="12dp"
+                app:backgroundTint="#FFC107"
+                android:text="مشاهدة المباراة"
+                android:textColor="@android:color/black"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:cornerRadius="8dp"
+                app:strokeColor="#E0E0E0"
+                app:strokeWidth="1dp"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="2dp"
+                android:layout_marginBottom="16dp"
                 android:background="@android:color/white"
                 android:orientation="vertical"
                 android:padding="16dp">
@@ -264,6 +282,7 @@
                         android:layout_alignParentEnd="true"/>
                 </RelativeLayout>
             </LinearLayout>
+
         </LinearLayout>
     </ScrollView>
 
