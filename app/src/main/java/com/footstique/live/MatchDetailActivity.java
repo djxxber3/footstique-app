@@ -2,6 +2,7 @@ package com.footstique.live;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
@@ -35,6 +36,9 @@ public class MatchDetailActivity extends AppCompatActivity {
     // Views for the top card (Teams and Score)
     private ImageView ivCompetitionLogo, ivHomeTeamLogo, ivAwayTeamLogo;
     private TextView tvCompetitionName;
+    private TextView tvMatchStatus;
+    private Handler countdownHandler = new Handler();
+    private Runnable countdownRunnable;
     private TextView tvHomeTeamName, tvAwayTeamName, tvKickoffTime;
 
     // Views for the details list
@@ -91,6 +95,7 @@ public class MatchDetailActivity extends AppCompatActivity {
         tvCompetitionName = findViewById(R.id.tvCompetitionName);
         ivHomeTeamLogo = findViewById(R.id.ivHomeTeamLogo);
         ivAwayTeamLogo = findViewById(R.id.ivAwayTeamLogo);
+        tvMatchStatus = findViewById(R.id.tvMatchStatus);
         tvHomeTeamName = findViewById(R.id.tvHomeTeamName);
         tvAwayTeamName = findViewById(R.id.tvAwayTeamName);
         tvKickoffTime = findViewById(R.id.tvKickoffTime);
@@ -198,8 +203,60 @@ public class MatchDetailActivity extends AppCompatActivity {
         // Set Text for time fields
         tvMatchTimeValue.setText(timeFormat.format(match.getKickoffTime()));
         tvKickoffTime.setText(timeOnlyFormat.format(match.getKickoffTime()));
+        // --- منطق حالة المباراة ---
+        long now = System.currentTimeMillis();
+        long matchTimeMillis = match.getKickoffTime().getTime();
+
+        if (matchTimeMillis > now) {
+            // المباراة في المستقبل
+            long diff = matchTimeMillis - now;
+            long days = diff / (24 * 60 * 60 * 1000);
+
+            if (days == 0) {
+                // اليوم
+                tvKickoffTime.setVisibility(View.VISIBLE);
+                startCountdown(matchTimeMillis);
+            } else if (days == 1) {
+                // غداً
+                tvKickoffTime.setVisibility(View.VISIBLE);
+                tvMatchStatus.setText("غدا");
+            }
+        } else {
+            // المباراة في الماضي
+            tvKickoffTime.setVisibility(View.GONE);
+            tvMatchStatus.setText("انتهت");
+        }
+
+    }
+    private void startCountdown(long matchTimeMillis) {
+        countdownRunnable = new Runnable() {
+            @Override
+            public void run() {
+                long now = System.currentTimeMillis();
+                long diff = matchTimeMillis - now;
+
+                if (diff > 0) {
+                    long hours = diff / (60 * 60 * 1000) % 24;
+                    long minutes = diff / (60 * 1000) % 60;
+                    long seconds = diff / 1000 % 60;
+
+                    tvMatchStatus.setText(String.format(Locale.US, "%02d:%02d:%02d", hours, minutes, seconds));
+                    countdownHandler.postDelayed(this, 1000);
+                } else {
+                    tvMatchStatus.setText("مباشر");
+                }
+            }
+        };
+        countdownHandler.post(countdownRunnable);
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (countdownHandler != null && countdownRunnable != null) {
+            countdownHandler.removeCallbacks(countdownRunnable);
+        }
+    }
     // --- **دالة جديدة للتعامل مع النقر على زر المشاهدة** ---
     private void handleWatchButtonClick() {
         List<MatchChannel> channels = match.getStreamingChannels();
