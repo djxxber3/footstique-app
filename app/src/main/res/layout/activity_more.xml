@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="?android:attr/windowBackground">
@@ -11,54 +12,7 @@
         android:orientation="vertical"
         android:padding="16dp">
 
-        <com.google.android.material.card.MaterialCardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:cardElevation="2dp"
-            app:cardCornerRadius="12dp"
-            android:layout_marginBottom="16dp">
 
-            <LinearLayout
-                android:id="@+id/theme_layout"
-                android:background="@color/white"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="16dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/Appearance"
-                    android:textSize="16sp"
-                    android:textAppearance="?attr/textAppearanceHeadline6"
-                    android:layout_marginBottom="8dp" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/selected_theme_textview"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="@string/light"
-                        android:textSize="14sp"
-                        android:layout_marginStart="16dp" />
-
-                    <Switch
-                        android:id="@+id/switch_theme"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-        </com.google.android.material.card.MaterialCardView>
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -108,7 +62,8 @@
                     <ImageView
                         android:src="@drawable/ic_chevron_right"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        tools:ignore="ContentDescription" />
 
                 </LinearLayout>
             </LinearLayout>
@@ -147,7 +102,7 @@
                         android:src="@drawable/ic_telegram"
                         android:layout_width="24dp"
                         android:layout_height="24dp"
-                        android:contentDescription="Telegram" />
+                        tools:ignore="ContentDescription" />
                     <TextView
                         android:text="@string/Follow_us_on_Telegram"
                         android:textSize="14sp"
@@ -168,7 +123,7 @@
                         android:src="@drawable/ic_facebook"
                         android:layout_width="24dp"
                         android:layout_height="24dp"
-                        android:contentDescription="Facebook" />
+                        tools:ignore="ContentDescription" />
                     <TextView
                         android:text="@string/Our_Facebook_page"
                         android:textSize="14sp"
@@ -189,7 +144,7 @@
                         android:src="@drawable/ic_website"
                         android:layout_width="24dp"
                         android:layout_height="24dp"
-                        android:contentDescription="Website" />
+                        tools:ignore="ContentDescription" />
                     <TextView
                         android:text="@string/Visit_our_website"
                         android:textSize="14sp"

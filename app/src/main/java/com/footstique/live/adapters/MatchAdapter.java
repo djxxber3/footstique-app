@@ -33,29 +33,25 @@ public class MatchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     private final List<Object> items;
     private final OnMatchClickListener listener;
     private final SimpleDateFormat timeFormat;
-    private final TimeZone preferredTimeZone; // تم تعريف المتغير هنا
+    private final TimeZone preferredTimeZone;
 
     public interface OnMatchClickListener {
         void onMatchClick(Match match);
     }
 
-    // تم تعديل الـ Constructor بالكامل
     public MatchAdapter(Context context, List<Object> items, OnMatchClickListener listener) {
         this.context = context;
         this.items = items;
         this.listener = listener;
         this.preferredTimeZone = TimeUtils.getPreferredTimeZone(context);
 
-        // Conditional Time Formatting based on current language
         String currentLanguage = com.yariksoffice.lingver.Lingver.getInstance().getLanguage();
         if (currentLanguage.equals("ar")) {
-            // Use Locale.US to force Latin digits, then set custom symbols for Arabic
             this.timeFormat = new SimpleDateFormat("hh:mm a", Locale.US);
             DateFormatSymbols arSymbols = new DateFormatSymbols();
-            arSymbols.setAmPmStrings(new String[]{"ص", "م"});
+            arSymbols.setAmPmStrings(new String[]{context.getString(R.string.am), context.getString(R.string.pm)});
             this.timeFormat.setDateFormatSymbols(arSymbols);
         } else {
-            // Default to US locale for other languages (e.g., English)
             this.timeFormat = new SimpleDateFormat("hh:mm a", Locale.US);
         }
         this.timeFormat.setTimeZone(this.preferredTimeZone);
@@ -113,9 +109,15 @@ public class MatchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .into(matchHolder.awayTeamLogo);
 
-            if (match.getStatus().equals("LIVE") || match.getStatus().equals("FT")) {
-                String score = match.getHomeTeam().getGoals() + " - " + match.getAwayTeam().getGoals();
-                matchHolder.matchTime.setText(score);
+            long now = System.currentTimeMillis();
+            long kickoffMillis = match.getKickoffTime().getTime();
+            long averageDurationMillis = (1 * 60 + 50) * 60 * 1000;
+            long estimatedEndMillis = kickoffMillis + averageDurationMillis;
+
+            if (now > estimatedEndMillis) {
+                matchHolder.matchTime.setText(context.getString(R.string.match_finished));
+            } else if (now >= kickoffMillis && now <= estimatedEndMillis) {
+                matchHolder.matchTime.setText(context.getString(R.string.match_live));
             } else {
                 String formatted = timeFormat.format(match.getKickoffTime());
                 int space = formatted.lastIndexOf(' ');
@@ -135,7 +137,6 @@ public class MatchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             });
         }
     }
-
     @Override
     public int getItemCount() {
         return items.size();

@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">Footstique</string>
     <string name="update_required">Update Required</string>
     <string name="update_message">Please update the app to continue</string>
@@ -28,7 +28,6 @@
     <string name="english">English</string>
     <string name="match_channels">Match Channels</string>
     <string name="no_channels_found">No channels available for this match at the moment</string>
-
     <string name="no_data_found">No data found</string>
     <string name="something_went_wrong">Something went wrong</string>
     <string name="no_internet_connection">No internet connection</string>
@@ -37,12 +36,6 @@
     <string name="today">Today</string>
     <string name="yesterday">Yesterday</string>
     <string name="tomorrow">Tomorrow</string>
-
-    <string name="light">Light</string>
-    <string name="dark">Dark</string>
-    <string name="system_default">System Default</string>
-    <string name="appearance">Appearance</string>
-
     <string name="about_app">About App</string>
     <string name="about_app_text">This app aims to provide a modern and easy shopping experience for users.</string>
     <string name="about_appp">About App</string>
@@ -55,5 +48,32 @@
     <string name="Our_Facebook_page">Our Facebook Page</string>
     <string name="Follow_us_on_Telegram">Follow us on Telegram</string>
     <string name="Social_media">Social Media</string>
-    <string name="Appearance">Appearance</string>
+
+    <!-- Fixed texts -->
+    <string name="watch_match">Watch Match</string>
+    <string name="competition">Competition</string>
+    <string name="stadium">Stadium</string>
+    <string name="broadcasting_channel">Broadcasting Channel</string>
+    <string name="match_time">Match Time</string>
+    <string name="match_date">Match Date</string>
+
+    <!-- Samples -->
+    <string name="sample_competition">La Liga</string>
+    <string name="sample_home_team">Real Mallorca</string>
+    <string name="sample_away_team">Espanyol</string>
+    <string name="sample_match_time">08:00 PM</string>
+    <string name="sample_match_status">Tomorrow</string>
+    <string name="sample_stadium">Stade Stage Front</string>
+    <string name="sample_channel">beIN Sports 3</string>
+    <string name="sample_match_time_zone">08:00 PM (GMT +1)</string>
+    <string name="sample_match_date" tools:ignore="TypographyDashes">Monday (15-09-2025)</string>
+    <string name="live_stream_and_matches">Live Stream and Match Schedules</string>
+    <string name="channel_name">Channel Name</string>
+    <string name="league_name">League Name</string>
+    <string name="team1_name">Team 1</string>
+    <string name="team2_name">Team 2</string>
+    <string name="match_finished">Finished</string>
+    <string name="match_live">Live</string>
+    <string name="am">AM</string>
+    <string name="pm">PM</string>
 </resources>

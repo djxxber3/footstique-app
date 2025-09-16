@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">Footstique</string>
     <string name="update_required">Mise à jour requise</string>
     <string name="update_message">Veuillez mettre à jour l\'application pour continuer</string>
@@ -6,7 +6,7 @@
     <string name="error_loading_data">Erreur lors du chargement des données</string>
     <string name="no_matches">Aucun match trouvé pour ce jour</string>
     <string name="no_channels">Aucune chaîne trouvée</string>
-    <string name="choose_date">Choisir la date</string>
+    <string name="choose_date">Choisir une date</string>
     <string name="stream_quality">Qualité du flux</string>
     <string name="matches_today">%d matchs aujourd\'hui</string>
     <string name="channels_count">%d chaînes</string>
@@ -15,7 +15,7 @@
     <string name="news_and_updates">Nouvelles &amp; mises à jour</string>
     <string name="watch">Regarder</string>
     <string name="home_team_logo">Logo de l\'équipe à domicile</string>
-    <string name="away_team_logo">Logo de l\'équipe à l\'extérieur</string>
+    <string name="away_team_logo">Logo de l\'équipe adverse</string>
     <string name="home">Accueil</string>
     <string name="favorites">Favoris</string>
     <string name="profile">Profil</string>
@@ -28,7 +28,6 @@
     <string name="english">Anglais</string>
     <string name="match_channels">Chaînes du match</string>
     <string name="no_channels_found">Aucune chaîne disponible pour ce match pour le moment</string>
-
     <string name="no_data_found">Aucune donnée trouvée</string>
     <string name="something_went_wrong">Une erreur s\'est produite</string>
     <string name="no_internet_connection">Pas de connexion Internet</string>
@@ -37,22 +36,44 @@
     <string name="today">Aujourd\'hui</string>
     <string name="yesterday">Hier</string>
     <string name="tomorrow">Demain</string>
-
-    <string name="light">Clair</string>
-    <string name="dark">Sombre</string>
-    <string name="system_default">Par défaut du système</string>
-    <string name="appearance">Apparence</string>
-
     <string name="about_app">À propos de l\'application</string>
-    <string name="about_app_text">Cette application vise à offrir une expérience d\'achat moderne et simple aux utilisateurs.</string>
+    <string name="about_app_text">Cette application vise à offrir une expérience d\'achat moderne et facile aux utilisateurs.</string>
     <string name="about_appp">À propos de l\'application</string>
     <string name="about">À propos</string>
     <string name="policy">Politique</string>
+    <string name="choose_channel_title">Choisir une chaîne</string>
     <string name="privacy_policy">Politique de confidentialité</string>
     <string name="about_apppp">À propos de l\'application</string>
     <string name="Visit_our_website">Visitez notre site</string>
     <string name="Our_Facebook_page">Notre page Facebook</string>
     <string name="Follow_us_on_Telegram">Suivez-nous sur Telegram</string>
     <string name="Social_media">Réseaux sociaux</string>
-    <string name="Appearance">Apparence</string>
+
+    <!-- Textes fixes -->
+    <string name="watch_match">Regarder le match</string>
+    <string name="competition">Compétition</string>
+    <string name="stadium">Stade</string>
+    <string name="broadcasting_channel">Chaîne de diffusion</string>
+    <string name="match_time">Heure du match</string>
+    <string name="match_date">Date du match</string>
+
+    <!-- Exemples -->
+    <string name="sample_competition">La Liga</string>
+    <string name="sample_home_team">Real Majorque</string>
+    <string name="sample_away_team">Espanyol</string>
+    <string name="sample_match_time">20h00</string>
+    <string name="sample_match_status">Demain</string>
+    <string name="sample_stadium">Stade Stage Front</string>
+    <string name="sample_channel">beIN Sports 3</string>
+    <string name="sample_match_time_zone">20h00 (GMT +1)</string>
+    <string name="sample_match_date" tools:ignore="TypographyDashes">Lundi (15-09-2025)</string>
+    <string name="live_stream_and_matches">Diffusion en direct et horaires des matchs</string>
+    <string name="channel_name">Nom de la chaîne</string>
+    <string name="league_name">Nom de la ligue</string>
+    <string name="team1_name">Équipe 1</string>
+    <string name="team2_name">Équipe 2</string>
+    <string name="match_finished">Terminé</string>
+    <string name="match_live">En direct</string>
+    <string name="am">AM</string>
+    <string name="pm">PM</string>
 </resources>

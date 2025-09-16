@@ -22,8 +22,6 @@ import com.yariksoffice.lingver.Lingver;
 public class MoreFragment extends Fragment {
 
     // Views for Theme
-    private LinearLayout themeLayout;
-    private TextView selectedThemeTextView;
 
     // Views for Language
     private LinearLayout languageLayout;
@@ -40,8 +38,6 @@ public class MoreFragment extends Fragment {
         // --- Initialize Views ---
         initializeViews(view);
 
-        // --- Setup Theme ---
-        setupTheme();
 
         // --- Setup Language ---
         setupLanguage();
@@ -53,10 +49,7 @@ public class MoreFragment extends Fragment {
     }
 
     private void initializeViews(View view) {
-        // Theme
-        themeLayout = view.findViewById(R.id
-                .theme_layout);
-        selectedThemeTextView = view.findViewById(R.id.selected_theme_textview);
+
 
         // Language
         languageLayout = view.findViewById(R.id.language_layout);
@@ -70,11 +63,6 @@ public class MoreFragment extends Fragment {
         telegramLayout = view.findViewById(R.id.telegram_layout);
     }
 
-    private void setupTheme() {
-        SharedPreferences themePrefs = requireActivity().getSharedPreferences("theme_prefs", Context.MODE_PRIVATE);
-        int currentNightMode = themePrefs.getInt("night_mode", AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
-        updateThemeTextView(currentNightMode);
-    }
 
     private void setupLanguage() {
 
@@ -85,7 +73,6 @@ public class MoreFragment extends Fragment {
     }
 
     private void setupClickListeners() {
-        themeLayout.setOnClickListener(v -> showThemeDialog());
         languageLayout.setOnClickListener(v -> showLanguageDialog());
 
         policyLayout.setOnClickListener(v -> startActivity(new Intent(requireContext(), PolicyActivity.class)));
@@ -130,36 +117,6 @@ public class MoreFragment extends Fragment {
 
     }
 
-        // --- Theme Methods ---
-    private void updateThemeTextView(int nightMode) {
-        if (nightMode == AppCompatDelegate.MODE_NIGHT_NO) {
-            selectedThemeTextView.setText(getString(R.string.light));
-        } else if (nightMode == AppCompatDelegate.MODE_NIGHT_YES) {
-            selectedThemeTextView.setText(getString(R.string.dark));
-        } else {
-            selectedThemeTextView.setText(getString(R.string.system_default));
-        }
-    }
-
-    private void showThemeDialog() {
-        final String[] themes = {getString(R.string.light), getString(R.string.dark), getString(R.string.system_default)};
-        final int[] themeValues = {AppCompatDelegate.MODE_NIGHT_NO, AppCompatDelegate.MODE_NIGHT_YES, AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM};
-
-        new AlertDialog.Builder(requireContext())
-                .setTitle(getString(R.string.appearance))
-                .setItems(themes, (dialog, which) -> {
-                    int selectedNightMode = themeValues[which];
-                    AppCompatDelegate.setDefaultNightMode(selectedNightMode);
-
-                    SharedPreferences themePrefs = requireActivity().getSharedPreferences("theme_prefs", Context.MODE_PRIVATE);
-                    SharedPreferences.Editor editor = themePrefs.edit();
-                    editor.putInt("night_mode", selectedNightMode);
-                    editor.apply();
-
-                    updateThemeTextView(selectedNightMode);
-                })
-                .show();
-    }
 
     // --- Utility Method ---
     private void openUrl(String url) {

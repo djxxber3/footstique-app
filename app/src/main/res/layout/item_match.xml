@@ -29,13 +29,14 @@
             android:layout_marginEnd="8dp"
             android:gravity="center"
             android:textAlignment="center"
-            android:text="Team 1"
+            android:text="@string/team1_name"
             android:textColor="@color/black"
             android:textSize="13sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/team1_logo"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
 
 
         <ImageView
@@ -46,7 +47,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/match_time"
             app:layout_constraintTop_toTopOf="parent"
-            tools:src="@drawable/ic_matches_nav" />
+            tools:src="@drawable/ic_matches_nav"
+            tools:ignore="ContentDescription" />
 
 
         <TextView
@@ -58,7 +60,7 @@
             android:paddingTop="2dp"
             android:paddingEnd="7dp"
             android:paddingBottom="2dp"
-            android:text="18:00"
+            android:text="@string/match_time"
             android:textColor="@color/black"
             android:textSize="14sp"
             android:textStyle="bold"
@@ -66,6 +68,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
 
 
         <ImageView
@@ -76,7 +79,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/match_time"
             app:layout_constraintTop_toTopOf="parent"
-            tools:src="@drawable/ic_matches_nav" />
+            tools:src="@drawable/ic_matches_nav"
+            tools:ignore="ContentDescription" />
 
 
         <TextView
@@ -87,13 +91,14 @@
             android:layout_marginEnd="8dp"
             android:gravity="center"
             android:textAlignment="center"
-            android:text="Team 2"
+            android:text="@string/team2_name"
             android:textColor="@color/black"
             android:textSize="13sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/team2_logo"
             app:layout_constraintTop_toTopOf="parent" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>

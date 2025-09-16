@@ -50,13 +50,15 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center_vertical"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        tools:ignore="UseCompoundDrawables">
 
                         <ImageView
                             android:id="@+id/ivCompetitionLogo"
                             android:layout_width="24dp"
                             android:layout_height="24dp"
-                            tools:src="@android:color/darker_gray" />
+                            tools:src="@android:color/darker_gray"
+                            tools:ignore="ContentDescription" />
 
                         <TextView
                             android:id="@+id/tvCompetitionName"
@@ -66,7 +68,7 @@
                             android:layout_weight="1"
                             android:textColor="@android:color/black"
                             android:textSize="14sp"
-                            tools:text="الدوري الإسباني" />
+                            tools:text="@string/sample_competition" />
 
                     </LinearLayout>
 
@@ -74,6 +76,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
+                        android:baselineAligned="false"
                         android:gravity="center_vertical"
                         android:orientation="horizontal">
 
@@ -82,13 +85,15 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:gravity="center"
-                            android:orientation="vertical">
+                            android:orientation="vertical"
+                            tools:ignore="UseCompoundDrawables">
 
                             <ImageView
                                 android:id="@+id/ivHomeTeamLogo"
                                 android:layout_width="60dp"
                                 android:layout_height="60dp"
-                                tools:src="@android:color/holo_blue_dark" />
+                                tools:src="@android:color/holo_blue_dark"
+                                tools:ignore="ContentDescription" />
 
                             <TextView
                                 android:id="@+id/tvHomeTeamName"
@@ -98,8 +103,9 @@
                                 android:textColor="@android:color/black"
                                 android:textSize="12sp"
                                 android:textAlignment="center"
-                                tools:text="ريال مايوركا" />
+                                tools:text="@string/sample_home_team" />
                         </LinearLayout>
+
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -115,7 +121,7 @@
                                 android:layout_height="wrap_content"
                                 android:textColor="@android:color/black"
                                 android:textSize="12sp"
-                                tools:text="08:00 م"/>
+                                tools:text="@string/sample_match_time" />
 
                             <TextView
                                 android:id="@+id/tvMatchStatus"
@@ -125,7 +131,7 @@
                                 android:background="@drawable/time_background"
                                 android:textColor="@android:color/black"
                                 android:textSize="16sp"
-                                tools:text="غدا"/>
+                                tools:text="@string/sample_match_status" />
 
                         </LinearLayout>
 
@@ -134,15 +140,15 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:gravity="center"
-                            android:orientation="vertical">
+                            android:orientation="vertical"
+                            tools:ignore="UseCompoundDrawables">
 
                             <ImageView
                                 android:id="@+id/ivAwayTeamLogo"
                                 android:layout_width="60dp"
                                 android:layout_height="60dp"
-                                tools:src="@android:color/holo_red_dark" />
-
-
+                                tools:src="@android:color/holo_red_dark"
+                                tools:ignore="ContentDescription" />
 
                             <TextView
                                 android:id="@+id/tvAwayTeamName"
@@ -152,7 +158,7 @@
                                 android:textColor="@android:color/black"
                                 android:textSize="12sp"
                                 android:textAlignment="center"
-                                tools:text="إسبانيول" />
+                                tools:text="@string/sample_away_team" />
                         </LinearLayout>
                     </LinearLayout>
                 </LinearLayout>
@@ -165,13 +171,14 @@
                 android:layout_marginTop="5dp"
                 android:paddingVertical="12dp"
                 app:backgroundTint="#FFC107"
-                android:text="مشاهدة المباراة"
+                android:text="@string/watch_match"
                 android:textColor="@android:color/black"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 app:cornerRadius="8dp"
                 app:strokeColor="#E0E0E0"
-                app:strokeWidth="1dp"/>
+                app:strokeWidth="1dp" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -188,18 +195,19 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="البطولة"
+                        android:text="@string/competition"
                         android:textColor="#757575"
                         android:textSize="14sp"
-                        android:layout_alignParentStart="true"/>
+                        android:layout_alignParentStart="true" />
                     <TextView
                         android:id="@+id/tvCompetitionValue"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@android:color/black"
                         android:textSize="14sp"
-                        tools:text="الدوري الإسباني"
-                        android:layout_alignParentEnd="true"/>
+                        tools:text="@string/sample_competition"
+                        android:layout_alignParentEnd="true"
+                        tools:ignore="RelativeOverlap" />
                 </RelativeLayout>
                 <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#E0E0E0"/>
 
@@ -210,18 +218,19 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="ملعب المباراة"
+                        android:text="@string/stadium"
                         android:textColor="#757575"
                         android:textSize="14sp"
-                        android:layout_alignParentStart="true"/>
+                        android:layout_alignParentStart="true" />
                     <TextView
                         android:id="@+id/tvStadiumValue"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@android:color/black"
                         android:textSize="14sp"
-                        tools:text="ستاد ستيتج فرونت"
-                        android:layout_alignParentEnd="true"/>
+                        tools:text="@string/sample_stadium"
+                        android:layout_alignParentEnd="true"
+                        tools:ignore="RelativeOverlap" />
                 </RelativeLayout>
                 <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#E0E0E0"/>
 
@@ -232,18 +241,19 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="القناة الناقلة"
+                        android:text="@string/broadcasting_channel"
                         android:textColor="#757575"
                         android:textSize="14sp"
-                        android:layout_alignParentStart="true"/>
+                        android:layout_alignParentStart="true" />
                     <TextView
                         android:id="@+id/tvBroadcastingChannelValue"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@android:color/black"
                         android:textSize="14sp"
-                        tools:text="بي إن سبورت 3"
-                        android:layout_alignParentEnd="true"/>
+                        tools:text="@string/sample_channel"
+                        android:layout_alignParentEnd="true"
+                        tools:ignore="RelativeOverlap" />
                 </RelativeLayout>
                 <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#E0E0E0"/>
 
@@ -254,18 +264,19 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="وقت المباراة"
+                        android:text="@string/match_time"
                         android:textColor="#757575"
                         android:textSize="14sp"
-                        android:layout_alignParentStart="true"/>
+                        android:layout_alignParentStart="true" />
                     <TextView
                         android:id="@+id/tvMatchTimeValue"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@android:color/black"
                         android:textSize="14sp"
-                        tools:text="08:00 م (GMT +1)"
-                        android:layout_alignParentEnd="true"/>
+                        tools:text="@string/sample_match_time_zone"
+                        android:layout_alignParentEnd="true"
+                        tools:ignore="RelativeOverlap" />
                 </RelativeLayout>
                 <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#E0E0E0"/>
 
@@ -276,18 +287,19 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="تاريخ المباراة"
+                        android:text="@string/match_date"
                         android:textColor="#757575"
                         android:textSize="14sp"
-                        android:layout_alignParentStart="true"/>
+                        android:layout_alignParentStart="true" />
                     <TextView
                         android:id="@+id/tvMatchDateValue"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@android:color/black"
                         android:textSize="14sp"
-                        tools:text="الاثنين (15-09-2025)"
-                        android:layout_alignParentEnd="true"/>
+                        tools:text="@string/sample_match_date"
+                        android:layout_alignParentEnd="true"
+                        tools:ignore="RelativeOverlap" />
                 </RelativeLayout>
             </LinearLayout>
 

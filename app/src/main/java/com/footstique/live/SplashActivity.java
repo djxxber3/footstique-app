@@ -51,14 +51,7 @@ public class SplashActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // Apply the saved theme
-        SharedPreferences sharedPreferences = getSharedPreferences("theme_prefs", MODE_PRIVATE);
-        boolean isDarkMode = sharedPreferences.getBoolean("is_dark_mode", false);
-        if (isDarkMode) {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-        } else {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-        }
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
 
         setContentView(R.layout.activity_splash);
         ProgressBar progressBar = findViewById(R.id.progressBar);

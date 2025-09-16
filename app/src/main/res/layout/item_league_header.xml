@@ -19,13 +19,15 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center_vertical"
-        android:padding="6dp">
+        android:padding="6dp"
+        tools:ignore="UseCompoundDrawables">
 
         <ImageView
             android:id="@+id/league_logo"
             android:layout_width="22dp"
             android:layout_height="22dp"
-            tools:src="@drawable/ic_matches_nav" />
+            tools:src="@drawable/ic_matches_nav"
+            tools:ignore="ContentDescription" />
 
         <TextView
             android:id="@+id/league_name"
@@ -34,10 +36,11 @@
             android:layout_gravity="center_vertical"
             android:layout_marginStart="12dp"
             android:layout_weight="1"
-            android:text="League Name"
+            android:text="@string/league_name"
             android:textColor="@android:color/black"
             android:textSize="13sp"
             android:textStyle="bold" />
+
 
     </LinearLayout>
 </com.google.android.material.card.MaterialCardView>

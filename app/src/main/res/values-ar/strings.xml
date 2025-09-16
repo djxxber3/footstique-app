@@ -1,15 +1,15 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">Footstique</string>
-    <string name="update_required">التحديث مطلوب</string>
+    <string name="update_required">مطلوب تحديث</string>
     <string name="update_message">يرجى تحديث التطبيق للمتابعة</string>
     <string name="visit_website">زيارة الموقع</string>
     <string name="error_loading_data">خطأ في تحميل البيانات</string>
-    <string name="no_matches">لا توجد مباريات لهذا اليوم</string>
+    <string name="no_matches">لا توجد مباريات في هذا اليوم</string>
     <string name="no_channels">لا توجد قنوات</string>
     <string name="choose_date">اختر التاريخ</string>
     <string name="stream_quality">جودة البث</string>
-    <string name="matches_today">%d مباراة اليوم</string>
-    <string name="channels_count">%d قناة</string>
+    <string name="matches_today">%d مباريات اليوم</string>
+    <string name="channels_count">%d قنوات</string>
     <string name="channel_details">تفاصيل القناة</string>
     <string name="latest_matches">أحدث المباريات</string>
     <string name="news_and_updates">الأخبار والتحديثات</string>
@@ -28,32 +28,52 @@
     <string name="english">الإنجليزية</string>
     <string name="match_channels">قنوات المباراة</string>
     <string name="no_channels_found">لا توجد قنوات متاحة لهذه المباراة حالياً</string>
-
     <string name="no_data_found">لا توجد بيانات</string>
     <string name="something_went_wrong">حدث خطأ ما</string>
     <string name="no_internet_connection">لا يوجد اتصال بالإنترنت</string>
     <string name="retry">إعادة المحاولة</string>
     <string name="live">مباشر</string>
     <string name="today">اليوم</string>
-    <string name="yesterday">الأمس</string>
+    <string name="yesterday">أمس</string>
     <string name="tomorrow">غداً</string>
-
-    <string name="light">فاتح</string>
-    <string name="dark">داكن</string>
-    <string name="system_default">افتراضي النظام</string>
-    <string name="appearance">المظهر</string>
-
-    <string name="about_app">حول التطبيق</string>
-    <string name="about_app_text">هذا التطبيق يهدف لتقديم تجربة تسوق عصرية وسهلة للمستخدمين.</string>
-    <string name="about_appp">حول التطبيق</string>
+    <string name="about_app">عن التطبيق</string>
+    <string name="about_app_text">يهدف هذا التطبيق إلى توفير تجربة تسوق حديثة وسهلة للمستخدمين.</string>
+    <string name="about_appp">عن التطبيق</string>
     <string name="about">حول</string>
     <string name="policy">السياسة</string>
-    <string name="privacy_policy">سياسة الخصوصية</string>
     <string name="choose_channel_title">اختر قناة</string>
-    <string name="about_apppp">حول التطبيق</string>
-    <string name="Visit_our_website">زوروا موقعنا</string>
+    <string name="privacy_policy">سياسة الخصوصية</string>
+    <string name="about_apppp">عن التطبيق</string>
+    <string name="Visit_our_website">زيارة موقعنا</string>
     <string name="Our_Facebook_page">صفحتنا على فيسبوك</string>
     <string name="Follow_us_on_Telegram">تابعنا على تيليجرام</string>
     <string name="Social_media">وسائل التواصل الاجتماعي</string>
-    <string name="Appearance">المظهر</string>
+
+    <!-- النصوص الثابتة -->
+    <string name="watch_match">مشاهدة المباراة</string>
+    <string name="competition">البطولة</string>
+    <string name="stadium">ملعب المباراة</string>
+    <string name="broadcasting_channel">القناة الناقلة</string>
+    <string name="match_time">وقت المباراة</string>
+    <string name="match_date">تاريخ المباراة</string>
+
+    <!-- عينات -->
+    <string name="sample_competition">الدوري الإسباني</string>
+    <string name="sample_home_team">ريال مايوركا</string>
+    <string name="sample_away_team">إسبانيول</string>
+    <string name="sample_match_time">08:00 م</string>
+    <string name="sample_match_status">غداً</string>
+    <string name="sample_stadium">ستاد ستيتج فرونت</string>
+    <string name="sample_channel">بي إن سبورت 3</string>
+    <string name="sample_match_time_zone">08:00 م (GMT +1)</string>
+    <string name="sample_match_date" tools:ignore="TypographyDashes">الاثنين (15-09-2025)</string>
+    <string name="live_stream_and_matches">بث مباشر ومواعيد المباريات</string>
+    <string name="channel_name">اسم القناة</string>
+    <string name="league_name">اسم البطولة</string>
+    <string name="team1_name">الفريق الأول</string>
+    <string name="team2_name">الفريق الثاني</string>
+    <string name="match_finished">انتهت</string>
+    <string name="match_live">جارية الآن</string>
+    <string name="am">ص</string>
+    <string name="pm">م</string>
 </resources>
